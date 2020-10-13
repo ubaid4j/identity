@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import {makeStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -9,6 +9,8 @@ import Form from "../../components/form/Form";
 import Paper from '@material-ui/core/Paper';
 import IDENTITY_FORM from "../../shared/forms/Forms";
 import formTypes from "../../shared/forms/FormTypes";
+import {useDispatch, useSelector} from "react-redux";
+import * as actionTypes from "../../store/actions/ActionTypes"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,24 +50,40 @@ function getStepContent(stepIndex) {
 const Forms = () => {
 
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [formType, setFormType] = React.useState(0);
     const steps = getSteps();
 
+    const dispatch = useDispatch();
+    const submitFormInfo = useCallback((info) => dispatch({type: actionTypes.NEXT_FORM, info: info}), []);
+    const form = useSelector(state => state.nextFormReducer.form);
+
+    const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
+
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        submitFormInfo(identityForm)
+        setFormType((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setFormType((prevActiveStep) => prevActiveStep - 1);
     };
 
     const handleReset = () => {
-        setActiveStep(0);
+        setFormType(0);
     };
+
+    const changeHandler = (event, formType) => {
+        const newIdentityForm = [...identityForm];
+        const subForm = {...newIdentityForm[formType]}
+        const fieldName = event.target.id;
+        subForm[fieldName].value = event.target.value;
+        newIdentityForm[formType] = subForm;
+        setIdentityForm(newIdentityForm);
+    }
 
     return (
         <div className={classes.root}>
-            <Stepper activeStep={activeStep} alternativeLabel>
+            <Stepper activeStep={formType} alternativeLabel>
                 {steps.map((label) => (
                     <Step key={label}>
                         <StepLabel>{label}</StepLabel>
@@ -73,7 +91,7 @@ const Forms = () => {
                 ))}
             </Stepper>
             <div>
-                {activeStep === steps.length ? (
+                {formType === steps.length ? (
                     <div>
                         <Typography className={classes.instructions}>All steps completed</Typography>
                         <Button onClick={handleReset}>Reset</Button>
@@ -81,18 +99,19 @@ const Forms = () => {
                 ) : (
                     <div>
                         <Paper elevation={3} className={classes.paper}>
-                            {getStepContent(activeStep)}
+                            {/*{getStepContent(formType)}*/}
+                            <Form form={IDENTITY_FORM[formType]} formType={formType} handler={changeHandler}/>
                         </Paper>
                         <div>
                             <Button
-                                disabled={activeStep === 0}
+                                disabled={formType === 0}
                                 onClick={handleBack}
                                 className={classes.backButton}
                             >
                                 Back
                             </Button>
                             <Button variant="contained" color="primary" onClick={handleNext}>
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                {formType === steps.length - 1 ? 'Finish' : 'Next'}
                             </Button>
                         </div>
                     </div>

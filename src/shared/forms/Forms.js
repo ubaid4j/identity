@@ -17,12 +17,12 @@ export const PERSONAL_INFO = {
     age: {
         value: "",
         required: true,
-        label: "Last Name"
+        label: "Age"
     },
     mobileNumber: {
         value: "",
         required: true,
-        label: "Last Name"
+        label: "Mobile Number"
     }
 }
 

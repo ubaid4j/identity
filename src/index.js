@@ -4,20 +4,28 @@ import './index.css';
 import 'fontsource-roboto';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {applyMiddleware, createStore} from "redux";
-import NextFormReducer from "./store/reducers/NextForm";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import NextFormReducer from "./store/reducers/NextFormReducer";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
+import PersonalInfoReducer from "./store/reducers/PersonalInfoReducer";
 
 
 const env = process.env.NODE_ENV === 'development'
 
+const rootReducer = combineReducers(
+    {
+        personalInfoReducer: PersonalInfoReducer,
+        nextFormReducer: NextFormReducer
+    }
+)
+
 let store;
 if (env) {
-    store = createStore(NextFormReducer, composeWithDevTools(applyMiddleware(thunk)));
+    store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 } else {
-    store = createStore(NextFormReducer, applyMiddleware(thunk));
+    store = createStore(rootReducer, applyMiddleware(thunk));
 }
 
 
