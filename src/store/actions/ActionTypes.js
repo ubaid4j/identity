@@ -1,1 +1,2 @@
 export const NEXT_FORM = "NEXT_FORM";
+export const SUBMIT_PERSONAL_INFO = "SUBMIT_PERSONAL_INFO";

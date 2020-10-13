@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Form = ({form}) => {
+const Form = ({form, handler, formType}) => {
     const classes = useStyles();
 
     const fields = Object.keys(form).map(key => {
@@ -30,7 +30,7 @@ const Form = ({form}) => {
             {
                 fields.map(field => {
                     return (
-                        <TextField key={field.id} required={field.required} id={field.id} label={field.label} variant="outlined" />
+                        <TextField key={field.id} required={field.required} id={field.id} label={field.label} variant="outlined" value={field.value} onChange={(event) => handler(event, formType)}/>
                     );
                 })
             }
