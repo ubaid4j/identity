@@ -9,14 +9,12 @@ import NextFormReducer from "./store/reducers/NextFormReducer";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
-import PersonalInfoReducer from "./store/reducers/PersonalInfoReducer";
 
 
 const env = process.env.NODE_ENV === 'development'
 
 const rootReducer = combineReducers(
     {
-        personalInfoReducer: PersonalInfoReducer,
         form: NextFormReducer
     }
 )

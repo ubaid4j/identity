@@ -10,8 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import IDENTITY_FORM from "../../shared/forms/Forms";
 import formTypes from "../../shared/forms/FormTypes";
 import {useDispatch, useSelector} from "react-redux";
-import * as actionTypes from "../../store/actions/ActionTypes"
 import _ from 'lodash'
+import {updateForm} from "../../store/actions/Form";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         width: "80%",
         height: "500px"
+    },
+    stepProgress: {
+        color: "red"
     }
 }));
 
@@ -48,8 +52,9 @@ const Forms = () => {
     const steps = getSteps();
 
     const dispatch = useDispatch();
-    const submitFormInfo = useCallback((info) => dispatch({type: actionTypes.NEXT_FORM, info: info}), []);
-    const form = useSelector(state => state.form.form);
+    const submitFormInfo = useCallback((info, id) => dispatch(updateForm(info, id)), [dispatch]);
+    const formId = useSelector(state => state.form.formId);
+    const isFormUpdating = useSelector(state => state.form.isUpdating);
 
     const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
 
@@ -67,9 +72,9 @@ const Forms = () => {
             }
             formData[key] = info;
         }
-        console.log(formData);
-
-        submitFormInfo(formData);
+        console.log("formId --> ", formId);
+        console.log("isForm Updating --> ", isFormUpdating);
+        submitFormInfo(formData, formId);
         setFormType((prevActiveStep) => formTypes[prevActiveStep.step + 1]);
     };
 
@@ -93,7 +98,10 @@ const Forms = () => {
         <div className={classes.root}>
             <Stepper activeStep={formType.step} alternativeLabel>
                 {steps.map((label) => (
-                    <Step key={label}>
+                    <Step
+                        key={label}
+                        className={classes.stepProgress}
+                    >
                         <StepLabel>{label}</StepLabel>
                     </Step>
                 ))}
