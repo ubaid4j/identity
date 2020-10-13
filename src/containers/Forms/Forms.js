@@ -5,8 +5,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import PersonalInfoForm from "./PersonalInfoForm/PersonalInfoForm";
+import Form from "../../components/form/Form";
 import Paper from '@material-ui/core/Paper';
+import IDENTITY_FORM from "../../shared/forms/Forms";
+import formTypes from "../../shared/forms/FormTypes";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,24 +31,21 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+
 function getSteps() {
-    return ['Add Personal Info', 'Add Education', 'Add Professional Info'];
+    return formTypes.map(type => type.label);
 }
+
+
 
 function getStepContent(stepIndex) {
-    switch (stepIndex) {
-        case 0:
-            return <PersonalInfoForm />
-        case 1:
-            return 'What is an ad group anyways?';
-        case 2:
-            return 'This is the bit I really care about!';
-        default:
-            return 'Unknown stepIndex';
-    }
+    return <Form form={IDENTITY_FORM[stepIndex]}/>;
 }
 
-const Form = () => {
+
+
+const Forms = () => {
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -103,4 +102,4 @@ const Form = () => {
     );
 }
 
-export default Form;
+export default Forms;

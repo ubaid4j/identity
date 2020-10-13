@@ -17,17 +17,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const PersonalInfoForm = () => {
+const Form = ({form}) => {
     const classes = useStyles();
+
+    const fields = Object.keys(form).map(key => {
+        form[key]['id'] = key
+        return form[key];
+    });
+
     return (
         <form className={classes.root}>
-            <TextField required id="outlined-basic" label="First Name" variant="outlined" />
-            <TextField id="outlined-basic" label="Middle Name" variant="outlined" />
-            <TextField required id="outlined-basic" label="Last Name" variant="outlined" />
-            <TextField required id="outlined-basic" label="Age" variant="outlined" />
-            <TextField required id="outlined-basic" label="Mobile Number" variant="outlined" />
+            {
+                fields.map(field => {
+                    return (
+                        <TextField key={field.id} required={field.required} id={field.id} label={field.label} variant="outlined" />
+                    );
+                })
+            }
         </form>
     );
 }
 
-export default PersonalInfoForm;
+export default Form;
