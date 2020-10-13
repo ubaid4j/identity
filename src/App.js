@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
 import Layout from "./hoc/Layout/Layout";
+import Form from "./containers/Forms/Forms";
 
 function App() {
     return (
         <div className="App">
             <Layout>
-                <p>Hello World</p>
-                <strong>By Ubaid</strong>
+                <Form>
+
+                </Form>
             </Layout>
         </div>
     );
