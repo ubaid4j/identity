@@ -1,4 +1,6 @@
-export const PERSONAL_INFO = {
+
+
+const PERSONAL_INFO = {
     firstName: {
         value: "",
         required: true,
@@ -26,7 +28,7 @@ export const PERSONAL_INFO = {
     }
 }
 
-export const EDUCATIONAL_INFO = {
+const EDUCATIONAL_INFO = {
     metricMarks: {
         value: "",
         required: true,
@@ -43,7 +45,7 @@ export const EDUCATIONAL_INFO = {
         label: "Bachelor CGPA"
     }
 }
-export const PROFESSIONAL_INFO  = {
+const PROFESSIONAL_INFO  = {
     status: {
         value: "",
         required: true,
@@ -60,7 +62,7 @@ export const PROFESSIONAL_INFO  = {
         label: "Designation Name"
     }
 }
-export const EXCISE_INFO = {
+const EXCISE_INFO = {
     isVehicle: {
         value: "",
         required: true,
@@ -77,7 +79,7 @@ export const EXCISE_INFO = {
         label: "Plate Number"
     }
 }
-export const RESIDENT_INFO = {
+const RESIDENT_INFO = {
     isHouse: {
         value: "",
         required: true,
@@ -90,5 +92,12 @@ export const RESIDENT_INFO = {
     },
 }
 
-const IDENTITY_FORM = [PERSONAL_INFO, EDUCATIONAL_INFO, PROFESSIONAL_INFO, EXCISE_INFO, RESIDENT_INFO];
-export default IDENTITY_FORM;
+const form = {
+    PERSONAL_INFO,
+    EDUCATIONAL_INFO,
+    PROFESSIONAL_INFO,
+    EXCISE_INFO,
+    RESIDENT_INFO
+}
+
+export default form;

@@ -8,7 +8,7 @@ const initialState = {
 const NextFormReducer = (state=initialState, action) => {
     switch (action.type) {
         case actionTypes.NEXT_FORM:
-            return {...state, ...action.info}
+            return {...state, form: action.info}
         default:
             return state;
     }

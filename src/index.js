@@ -17,7 +17,7 @@ const env = process.env.NODE_ENV === 'development'
 const rootReducer = combineReducers(
     {
         personalInfoReducer: PersonalInfoReducer,
-        nextFormReducer: NextFormReducer
+        form: NextFormReducer
     }
 )
 
