@@ -86,11 +86,37 @@ const Forms = () => {
         setFormType(formTypes[0]);
     };
 
-    const changeHandler = (event, formType) => {
+    const toggleInputsDisabled = (formType, isDisable) => {
         const newIdentityForm = _.clone(identityForm);
         const subForm = newIdentityForm[formType.value];
-        const fieldName = event.target.id;
-        subForm[fieldName].value = event.target.value;
+        for (let field in subForm) {
+            if (subForm.hasOwnProperty(field)) {
+                if (subForm[field].type === 'text' || subForm[field].type === 'select') {
+                    subForm[field].disabled = isDisable;
+                }
+            }
+        }
+        console.log('New Identity Form: => ', newIdentityForm);
+        setIdentityForm(newIdentityForm);
+    }
+
+    const changeHandler = (event, formType, inputType) => {
+        const newIdentityForm = _.clone(identityForm);
+        const subForm = newIdentityForm[formType.value];
+        let fieldName = event.target.id;
+        if (fieldName === undefined) {
+            fieldName = event.target.name;
+        }
+        if (inputType === "check") {
+            subForm[fieldName].value = event.target.checked;
+            if (event.target.checked) {
+                toggleInputsDisabled(formType, false);
+            } else {
+                toggleInputsDisabled(formType, true);
+            }
+        } else {
+            subForm[fieldName].value = event.target.value;
+        }
         setIdentityForm(newIdentityForm);
     }
 
