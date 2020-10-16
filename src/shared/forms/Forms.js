@@ -178,6 +178,7 @@ const EXCISE_INFO = {
     plateNumber: {
         disabled: true,
         type: "text",
+        value: "",
         validation: {
             required: true,
             minLength: 4,
