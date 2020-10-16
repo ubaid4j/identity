@@ -66,7 +66,9 @@ const Forms = () => {
             for (let key in subForm) {
                 if (subForm.hasOwnProperty(key)) {
                     const value = subForm[key];
-                    info[key] = value['value'];
+                    if (!value.disabled) {
+                        info[key] = value['value'];
+                    }
                 }
             }
             formData[key] = info;
