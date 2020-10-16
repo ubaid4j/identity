@@ -62,6 +62,7 @@ const Form = ({form, handler, formType}) => {
                                     value={field.value}
                                     label={field.label}
                                     id={field.id}
+                                    key={field.id}
                                     options={field.options}
                                     formType={formType}
                                     handler={handler}
@@ -70,6 +71,7 @@ const Form = ({form, handler, formType}) => {
                         case "check":
                             return (
                                 <Check
+                                    key={field.id}
                                     handler={handler}
                                     formType={formType}
                                     id={field.id}

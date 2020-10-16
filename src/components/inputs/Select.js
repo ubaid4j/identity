@@ -26,6 +26,8 @@ const SelectInput = ({formType, required, id, disabled, label, value, options, h
         >
             <InputLabel id={id}>{label}</InputLabel>
             <Select
+                required={required}
+                native
                 labelId={id}
                 key={id}
                 id={id}
@@ -34,10 +36,10 @@ const SelectInput = ({formType, required, id, disabled, label, value, options, h
                 label={label}
                 onChange={(event) => handler(event, formType, "input")}
             >
-                <MenuItem key={"none"} aria-label="None" value="">None</MenuItem>
+                <option key={"none"} aria-label="None" value=""/>
                 {
-                    options.map(option => {
-                        return <MenuItem key={option} value={option}>{option}</MenuItem>
+                    options.map(value => {
+                        return <option key={value} value={value}>{value}</option>
                     })
                 }
             </Select>
