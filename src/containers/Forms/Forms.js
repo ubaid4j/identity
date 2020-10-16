@@ -39,11 +39,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 function getSteps() {
     return formTypes.filter(type => type.step !== 5).map(type => type.label);
 }
-
 
 
 const Forms = () => {
@@ -57,6 +55,7 @@ const Forms = () => {
     const isFormUpdating = useSelector(state => state.form.isUpdating);
 
     const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
+    const [isNextButtonDisable, setNextButtonDisable] = useState(true);
 
     const handleNext = () => {
         const form = _.clone(identityForm);
@@ -75,12 +74,29 @@ const Forms = () => {
         console.log("formId --> ", formId);
         console.log("isForm Updating --> ", isFormUpdating);
         submitFormInfo(formData, formId);
-        setFormType((prevActiveStep) => formTypes[prevActiveStep.step + 1]);
+        setFormType((prevActiveStep) => {
+            setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
+            return formTypes[prevActiveStep.step + 1]
+        });
     };
 
     const handleBack = () => {
-        setFormType((prevActiveStep) => formTypes[prevActiveStep.step - 1]);
+        setFormType((prevActiveStep) => {
+            setNextButtonEnable(formTypes[prevActiveStep.step - 1]);
+            return formTypes[prevActiveStep.step - 1]
+        });
     };
+
+    const setNextButtonEnable = (formType) => {
+        const newIdentityForm = _.clone(identityForm);
+        const subForm = newIdentityForm[formType.value];
+        if (isValid(subForm)) {
+            setNextButtonDisable(false);
+        } else {
+            setNextButtonDisable(true);
+        }
+    }
+
 
     const handleReset = () => {
         setFormType(formTypes[0]);
@@ -115,10 +131,41 @@ const Forms = () => {
                 toggleInputsDisabled(formType, true);
             }
         } else {
-            subForm[fieldName].value = event.target.value;
+            const field = subForm[fieldName];
+            field.value = event.target.value;
+            field.validation.isTouched = true;
+            field.validation.isValid = checkValidation(field.value, field.validation);
         }
+        //validation checking
+        if (isValid(subForm)) {
+            setNextButtonDisable(false);
+        } else {
+            setNextButtonDisable(true)
+        }
+        //validation checking end
         setIdentityForm(newIdentityForm);
     }
+
+    const checkValidation = (value, validation) => {
+        value = String(value);
+        return (value.length >= validation.minLength && value.length <= validation.maxLength);
+    }
+
+    const isValid = (subForm) => {
+        for (let key in subForm) {
+            if (subForm.hasOwnProperty(key)) {
+                const field = subForm[key];
+                console.log("Field: -> ", field);
+                if (!field.disabled && !field.validation.isValid) {
+                    console.log('Form is not valid -> returning false');
+                    return false;
+                }
+            }
+        }
+        console.log("Form is Valid");
+        return true;
+    }
+
 
     return (
         <div className={classes.root}>
@@ -151,7 +198,8 @@ const Forms = () => {
                             >
                                 Back
                             </Button>
-                            <Button variant="contained" color="primary" onClick={handleNext}>
+                            <Button variant="contained" color="primary" onClick={handleNext}
+                                    disabled={isNextButtonDisable}>
                                 {formType.step === steps.length - 1 ? 'Finish' : 'Next'}
                             </Button>
                         </div>

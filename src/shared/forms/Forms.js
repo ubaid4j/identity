@@ -8,7 +8,9 @@ const PERSONAL_INFO = {
         validation: {
             required: true,
             minLength: 3,
-            maxLength: 255
+            maxLength: 255,
+            isTouched: false,
+            isValid: false
         },
         label: "First Name"
     },
@@ -17,7 +19,11 @@ const PERSONAL_INFO = {
         value: "",
         type: "text",
         validation: {
-            maxLength: 255
+            required: false,
+            minLength: 0,
+            maxLength: 255,
+            isTouched: false,
+            isValid: false
         },
         label: "Middle Name"
     },
@@ -28,18 +34,22 @@ const PERSONAL_INFO = {
         validation: {
             required: true,
             minLength: 3,
-            maxLength: 255
+            maxLength: 255,
+            isTouched: false,
+            isValid: false
         },
         label: "Last Name"
     },
     age: {
         disabled: false,
         value: "",
-        type: "number",
+        type: "text",
         validation: {
             required: true,
             minLength: 2,
-            maxLength: 2
+            maxLength: 2,
+            isTouched: false,
+            isValid: false
         },
         label: "Age"
     },
@@ -50,7 +60,9 @@ const PERSONAL_INFO = {
         validation: {
             required: true,
             minLength: 11,
-            maxLength: 16
+            maxLength: 16,
+            isTouched: false,
+            isValid: false
         },
         label: "Mobile Number"
     }
@@ -64,7 +76,10 @@ const EDUCATIONAL_INFO = {
         validation: {
             required: true,
             minLength: 3,
-            maxLength: 6
+            maxLength: 6,
+            isTouched: false,
+            isValid: false
+
         },
         label: "Percentage in Metric"
     },
@@ -75,7 +90,10 @@ const EDUCATIONAL_INFO = {
         validation: {
             required: true,
             minLength: 3,
-            maxLength: 6
+            maxLength: 6,
+            isTouched: false,
+            isValid: false
+
         },
         label: "Percentage in Intermediate"
     },
@@ -86,8 +104,11 @@ const EDUCATIONAL_INFO = {
         options: [1, 2, 3, 4],
         validation: {
             required: true,
-            minLength: 3,
-            maxLength: 6
+            minLength: 1,
+            maxLength: 6,
+            isTouched: false,
+            isValid: false
+
         },
         label: "CGPA in Bachelor "
     }
@@ -97,7 +118,9 @@ const PROFESSIONAL_INFO  = {
         value: false,
         type: "check",
         validation: {
-            required: true
+            required: true,
+            isTouched: false,
+            isValid: true
         },
         label: "Are You Employed?"
     },
@@ -108,7 +131,9 @@ const PROFESSIONAL_INFO  = {
         validation: {
             required: true,
             minLength: 5,
-            maxLength: 255
+            maxLength: 255,
+            isTouched: false,
+            isValid: false
         },
         label: "Name of Company"
     },
@@ -119,7 +144,9 @@ const PROFESSIONAL_INFO  = {
         validation: {
             required: true,
             minLength: 5,
-            maxLength: 255
+            maxLength: 255,
+            isTouched: false,
+            isValid: false
         },
         label: "Designation Name"
     }
@@ -129,7 +156,8 @@ const EXCISE_INFO = {
         value: false,
         type: "check",
         validation: {
-            required: true
+            required: false,
+            isValid: true
         },
         label: "Have you vehicle?"
     },
@@ -140,6 +168,10 @@ const EXCISE_INFO = {
         options: ["Bike", "SVM"],
         validation: {
             required: true,
+            minLength: 1,
+            maxLength: 255,
+            isTouched: false,
+            isValid: false
         },
         label: "Type"
     },
@@ -149,7 +181,9 @@ const EXCISE_INFO = {
         validation: {
             required: true,
             minLength: 4,
-            maxLength: 10
+            maxLength: 10,
+            isTouched: false,
+            isValid: false
         },
         label: "Plate Number"
     }
@@ -159,7 +193,8 @@ const RESIDENT_INFO = {
         value: false,
         type: "check",
         validation: {
-            required: true
+            required: false,
+            isValid: true
         },
         label: "Are you own a house?"
     },
@@ -170,10 +205,12 @@ const RESIDENT_INFO = {
         validation: {
             required: true,
             minLength: 4,
-            maxLength: 10
+            maxLength: 10,
+            isTouched: false,
+            isValid: true
         },
         label: "houseNumber"
-    },
+    }
 }
 
 const form = {
