@@ -1,6 +1,8 @@
 import React from "react";
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
+import SelectInput from "../inputs/Select";
+import Check from "../inputs/Check";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +15,14 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
             width: '80%',
         },
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+        textAlign: "left"
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
     },
 }));
 
@@ -29,9 +39,47 @@ const Form = ({form, handler, formType}) => {
         <form className={classes.root}>
             {
                 fields.map(field => {
-                    return (
-                        <TextField key={field.id} required={field.required} id={field.id} label={field.label} variant="outlined" value={field.value} onChange={(event) => handler(event, formType)}/>
-                    );
+                    switch (field.type) {
+                        case "text":
+                            return (
+                                <TextField
+                                    error={field.validation.isTouched && !field.validation.isValid}
+                                    disabled={field.disabled}
+                                    hidden={field.hidden}
+                                    key={field.id}
+                                    required={field.validation.required}
+                                    id={field.id}
+                                    label={field.label}
+                                    variant="outlined"
+                                    value={field.value}
+                                    onChange={(event) => handler(event, formType, "input")}/>
+                            );
+                        case "select":
+                            return (
+                                <SelectInput
+                                    required={field.validation.required}
+                                    disabled={field.disabled}
+                                    value={field.value}
+                                    label={field.label}
+                                    id={field.id}
+                                    options={field.options}
+                                    formType={formType}
+                                    handler={handler}
+                                />
+                            );
+                        case "check":
+                            return (
+                                <Check
+                                    handler={handler}
+                                    formType={formType}
+                                    id={field.id}
+                                    label={field.label}
+                                    value={field.value}
+                                />
+                            )
+                        default:
+                            return null;
+                    }
                 })
             }
         </form>
