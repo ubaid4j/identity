@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {MenuItem, Typography} from '@material-ui/core';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,9 +32,15 @@ export default function AppNavBar() {
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Typography className={classes.title}>Identity</Typography>
-                    <MenuItem>Home</MenuItem>
-                    <MenuItem>Preview Form</MenuItem>
-                    <MenuItem className={classes.authItem}>Auth</MenuItem>
+                    <Link to="/identity/create" style={{ textDecoration: 'none', outline: "none" }}>
+                        <MenuItem style={{color: "white"}}>Home</MenuItem>
+                    </Link>
+                    <Link to="#" style={{ textDecoration: 'none', outline: "none" }}>
+                        <MenuItem style={{color: "white"}}>Form Preview</MenuItem>
+                    </Link>
+                    <Link to="#" style={{ textDecoration: 'none', outline: "none" }}>
+                        <MenuItem style={{color: "white"}}>Auth</MenuItem>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </div>

@@ -12,6 +12,7 @@ import formTypes from "../../shared/forms/FormTypes";
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash'
 import {updateForm} from "../../store/actions/Form";
+import DialogView from "../../components/modal/DialogView";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,9 @@ const Forms = () => {
     const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
     const [isNextButtonDisable, setNextButtonDisable] = useState(true);
 
-    const handleNext = () => {
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    function getFormData() {
         const form = _.clone(identityForm);
         const formData = {};
         for (let key in form) {
@@ -73,8 +76,56 @@ const Forms = () => {
             }
             formData[key] = info;
         }
-        console.log("formId --> ", formId);
-        console.log("isForm Updating --> ", isFormUpdating);
+        return formData;
+    }
+
+    const clearFormData = () => {
+        const newIdentityForm = _.clone(identityForm);
+        for (let key in newIdentityForm) {
+            const subForm = newIdentityForm[key];
+            if (subForm === IDENTITY_FORM.PROFESSIONAL_INFO || subForm === IDENTITY_FORM.EXCISE_INFO || subForm === IDENTITY_FORM.RESIDENT_INFO) {
+                for (let key in subForm) {
+                    if (subForm.hasOwnProperty(key)) {
+                        const field = subForm[key];
+                        if (field.type === 'check') {
+                            field.value = false
+                        } else {
+                            field.disabled = true;
+                            field.value = "";
+                            field.validation.isValid = false;
+                            field.validation.isTouched = false;
+                        }
+                    }
+                }
+            } else {
+                for (let key in subForm) {
+                    if (subForm.hasOwnProperty(key)) {
+                        const field = subForm[key];
+                        field.value = "";
+                        field.validation.isValid = false;
+                        field.validation.isTouched = false;
+                    }
+                }
+            }
+        }
+        setIdentityForm(newIdentityForm);
+    }
+
+    const handleSaveForm = () => {
+        setModalOpen(false);
+        const formData = getFormData();
+        formData['isFormCompleted'] = true;
+        formData['useId'] = 1234;
+        submitFormInfo(formData, formId);
+        setFormType(formTypes[0]);
+        setNextButtonDisable(true);
+        clearFormData();
+    }
+
+    const handleNext = () => {
+        const formData = getFormData();
+        formData['isFormCompleted'] = false;
+        formData['useId'] = 1234;
         submitFormInfo(formData, formId);
         setFormType((prevActiveStep) => {
             setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
@@ -200,14 +251,22 @@ const Forms = () => {
                             >
                                 Back
                             </Button>
-                            <Button variant="contained" color="primary" onClick={handleNext}
-                                    disabled={isNextButtonDisable}>
-                                {formType.step === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
+                            {
+                                formType.step !== steps.length - 1 ?
+                                    <Button variant="contained" color="primary" onClick={handleNext}
+                                            disabled={isNextButtonDisable}>
+                                        Next
+                                    </Button> :
+                                    <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
+                                            disabled={isNextButtonDisable}>
+                                        Preview
+                                    </Button>
+                            }
                         </div>
                     </div>
                 )}
             </div>
+            <DialogView form={identityForm} open={isModalOpen} modalHandler={() => setModalOpen(false)} saveFormHandler={handleSaveForm}/>
         </div>
     );
 }
