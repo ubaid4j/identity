@@ -51,8 +51,8 @@ const FormPreview = ({form}) => {
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell><strong>Field Name</strong></TableCell>
-                                            <TableCell align="right"><strong>Value</strong></TableCell>
+                                            <TableCell width='20%'><strong>Field Name</strong></TableCell>
+                                            <TableCell width='40%'><strong>Value</strong></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -64,7 +64,7 @@ const FormPreview = ({form}) => {
                                                         <TableCell component="th" scope="row">
                                                             {field.label}
                                                         </TableCell>
-                                                        <TableCell align="right">{field.value}</TableCell>
+                                                        <TableCell>{field.value}</TableCell>
                                                     </TableRow>
                                                 )
                                             })
