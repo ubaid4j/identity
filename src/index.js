@@ -9,6 +9,7 @@ import NextFormReducer from "./store/reducers/NextFormReducer";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 
 
 const env = process.env.NODE_ENV === 'development'
@@ -30,9 +31,11 @@ if (env) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <React.StrictMode>
-            <App/>
-        </React.StrictMode>
+        <BrowserRouter>
+            <React.StrictMode>
+                <App/>
+            </React.StrictMode>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );
