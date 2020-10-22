@@ -1,14 +1,29 @@
 import React, {createContext} from "react";
 import {useSelector} from "react-redux";
 
-export const UserContext = createContext({user: null});
+const defaultValue = {
+    username: null,
+    userId: null,
+    isLogin: false
+}
+
+export const UserContext = createContext(defaultValue);
 
 const UserProvider = (props) => {
 
-    const user = useSelector(state => state.auth.user);
+    const username = useSelector(state => state.login.username);
+    const userId = useSelector(state => state.login.id);
+    const isLogin = useSelector(state => state.login.isLogin);
 
+    const newUser = {
+        username: username,
+        userId: userId,
+        isLogin: isLogin
+    }
+
+    console.log('User Provider -> ', newUser);
     return (
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={newUser}>
             {props.children}
         </UserContext.Provider>
     );

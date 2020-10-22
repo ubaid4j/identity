@@ -1,12 +1,19 @@
-import React from 'react';
-import { Route, Redirect } from "react-router-dom";
+import React, {useContext} from 'react';
+import {Route, Redirect} from "react-router-dom";
+import {UserContext} from "../../providers/UserProvider";
 
-const GuardedRoute = ({ component: Component, auth, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        auth === true
-            ? <Component {...props} />
-            : <Redirect to='/identity' />
-    )} />
-)
+const GuardedRoute = ({component: Component, ...rest}) => {
+    const user = useContext(UserContext);
+
+    console.log("GaurdedRoute.js executing: user ----> ", user);
+
+    return (
+        <Route {...rest} render={(props) => (
+            user.isLogin === true
+                ? <Component {...props} />
+                : <Redirect to='/identity'/>
+        )}/>
+    )
+}
 
 export default GuardedRoute;

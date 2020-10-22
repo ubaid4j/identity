@@ -53,7 +53,7 @@ const Forms = () => {
     const dispatch = useDispatch();
     const submitFormInfo = useCallback((info, id) => dispatch(updateForm(info, id)), [dispatch]);
     const formId = useSelector(state => state.form.formId);
-    const isFormUpdating = useSelector(state => state.form.isUpdating);
+    // const isFormUpdating = useSelector(state => state.form.isUpdating);
 
     const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
     const [isNextButtonDisable, setNextButtonDisable] = useState(true);

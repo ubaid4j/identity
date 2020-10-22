@@ -1,19 +1,18 @@
 import React from "react";
-import Paper from '@material-ui/core/Paper';
-import {makeStyles} from "@material-ui/core/styles";
+// import {makeStyles} from "@material-ui/core/styles";
 import Introduction from "../introduction/Introduction";
 import {Grid} from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: "center",
-        color: theme.palette.text.primary,
-        background: theme.palette.grey,
-        height: `calc(100vh -  11vh)`
-
-    }
-}));
+// const useStyles = makeStyles(theme => ({
+//     paper: {
+//         padding: theme.spacing(1),
+//         textAlign: "center",
+//         color: theme.palette.text.primary,
+//         background: theme.palette.grey,
+//         height: `calc(100vh -  11vh)`
+//
+//     }
+// }));
 
 const Home = () => {
     return (
