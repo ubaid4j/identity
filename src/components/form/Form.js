@@ -45,6 +45,7 @@ const Form = ({form, handler, formType}) => {
                             return (
                                 <TextField
                                     error={field.validation.isTouched && !field.validation.isValid}
+                                    helperText={field.helperText}
                                     disabled={field.disabled}
                                     hidden={field.hidden}
                                     key={field.id}
@@ -60,6 +61,7 @@ const Form = ({form, handler, formType}) => {
                                 <TextField
                                     type={"number"}
                                     error={field.validation.isTouched && !field.validation.isValid}
+                                    helperText={field.helperText}
                                     disabled={field.disabled}
                                     hidden={field.hidden}
                                     key={field.id}
