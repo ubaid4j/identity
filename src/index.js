@@ -10,13 +10,17 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
+import AuthReducer from "./store/reducers/AuthReducer";
+import LoginReducer from "./store/reducers/LoginReducer";
 
 
 const env = process.env.NODE_ENV === 'development'
 
 const rootReducer = combineReducers(
     {
-        form: NextFormReducer
+        form: NextFormReducer,
+        auth: AuthReducer,
+        login: LoginReducer
     }
 )
 
