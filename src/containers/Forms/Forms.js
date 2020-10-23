@@ -222,13 +222,37 @@ const Forms = () => {
             }
         } else {
             const field = subForm[fieldName];
+            field.helperText = '';
             field.value = event.target.value;
             field.validation.isTouched = true;
-            field.validation.isValid = checkValidation(field.value, field.validation);
+
+            const isValid  = checkValidation(field.value, field.validation);
+            field.validation.isValid = isValid;
+            if (!isValid) {
+                field.helperText = `Value should be in range [${field.validation.minLength} ${field.validation.maxLength}]`
+            }
+
             if (field.id === 'age') {
                 if (field.value < 1 || field.value > 75) {
                     field.validation.isValid = false;
+                    field.helperText = "Value should be positive";
                 }
+            }
+
+            switch (field.id) {
+                case 'metricMarks':
+                    if (!field.value.includes('%')) {
+                        field.helperText = "% sign is missing";
+                    }
+                    break;
+                case 'intermediateMarks':
+                    if (!field.value.includes('%')) {
+                        field.helperText = "% sign is missing";
+                    }
+                    break;
+                default:
+                    // do nothing;
+
             }
         }
         //validation checking of whole subform

@@ -5,6 +5,8 @@ const PERSONAL_INFO = {
         disabled: false,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 3,
@@ -18,6 +20,8 @@ const PERSONAL_INFO = {
         disabled: false,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: false,
             minLength: 0,
@@ -31,6 +35,8 @@ const PERSONAL_INFO = {
         disabled: false,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 3,
@@ -44,6 +50,8 @@ const PERSONAL_INFO = {
         disabled: false,
         value: "",
         type: "number",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 2,
@@ -57,6 +65,8 @@ const PERSONAL_INFO = {
         disabled: false,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 11,
@@ -73,10 +83,12 @@ const EDUCATIONAL_INFO = {
         disabled: false,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 3,
-            maxLength: 6,
+            maxLength: 3,
             isTouched: false,
             isValid: false
 
@@ -87,10 +99,12 @@ const EDUCATIONAL_INFO = {
         disabled: false,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 3,
-            maxLength: 6,
+            maxLength: 3,
             isTouched: false,
             isValid: false
 
@@ -102,6 +116,8 @@ const EDUCATIONAL_INFO = {
         value: "",
         type: "select",
         options: [1, 2, 3, 4],
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 1,
@@ -117,6 +133,8 @@ const PROFESSIONAL_INFO  = {
     status: {
         value: false,
         type: "check",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             isTouched: false,
@@ -128,6 +146,8 @@ const PROFESSIONAL_INFO  = {
         disabled: true,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 5,
@@ -141,6 +161,8 @@ const PROFESSIONAL_INFO  = {
         disabled: true,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 5,
@@ -155,6 +177,8 @@ const EXCISE_INFO = {
     isVehicle: {
         value: false,
         type: "check",
+        error: false,
+        helperText: "",
         validation: {
             required: false,
             isValid: true
@@ -166,6 +190,8 @@ const EXCISE_INFO = {
         value: "",
         type: "select",
         options: ["Bike", "SVM"],
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 1,
@@ -179,6 +205,8 @@ const EXCISE_INFO = {
         disabled: true,
         type: "text",
         value: "",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 4,
@@ -193,6 +221,8 @@ const RESIDENT_INFO = {
     isHouse: {
         value: false,
         type: "check",
+        error: false,
+        helperText: "",
         validation: {
             required: false,
             isValid: true
@@ -203,6 +233,8 @@ const RESIDENT_INFO = {
         disabled: true,
         value: "",
         type: "text",
+        error: false,
+        helperText: "",
         validation: {
             required: true,
             minLength: 4,
@@ -210,7 +242,7 @@ const RESIDENT_INFO = {
             isTouched: false,
             isValid: true
         },
-        label: "houseNumber"
+        label: "House Number"
     }
 }
 
