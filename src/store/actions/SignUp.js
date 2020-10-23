@@ -8,9 +8,9 @@ export const signup = (userData) => {
         axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAU_vVv_YXI-3RAqIfCYeRYmhqke8Uv7xw`, userData)
             .then(response => {
                 console.log(response);
-                dispatch(storeToken(response.data.idToken, response.data.expiresIn))
                 RequestResolver.post('/users.json', {username: userData.firstName + ' ' + userData.lastName, userId: response.data.localId})
                     .then(() => {
+                        dispatch(storeToken(response.data.idToken, response.data.expiresIn, response.data.localId))
                         dispatch(SignUpFinished({...response.data, username: userData.firstName + ' ' + userData.lastName}))
                     })
                     .catch(error => {
@@ -25,10 +25,14 @@ export const signup = (userData) => {
     }
 }
 
-const storeToken = (token, expiryTime) => {
+const storeToken = (token, expiryTime, userId) => {
     localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('expiryTime', expiryTime);
     const timeout = setTimeout(() => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('expiryTime');
     }, expiryTime * 1000);
     return {
         type: actionTypes.SET_TIMEOUT,

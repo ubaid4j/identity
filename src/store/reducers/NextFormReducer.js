@@ -16,6 +16,8 @@ const NextFormReducer = (state=initialState, action) => {
             return {...state, error: action.error}
         case actionTypes.FORM_UPDATING:
             return {...state, isUpdating: true}
+        case actionTypes.POPULATE_FORM:
+            return {...state, form: action.form, formId: action.formId, isCompleted: action.isCompleted}
         default:
             return state;
     }

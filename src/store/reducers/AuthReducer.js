@@ -8,7 +8,6 @@ const initialState = {
     isSignUpLoading: false,
     timeout: null
 };
-//TODO starting on REDUX (SIGNUP)
 const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SIGNUP_START:

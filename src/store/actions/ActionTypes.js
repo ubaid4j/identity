@@ -1,8 +1,7 @@
 export const NEXT_FORM = "NEXT_FORM";
-export const BACK_FORM = "BACK_FORM";
 export const HALT_FORM = "HALT_FORM";
 export const FORM_UPDATING = "FORM_UPDATING";
-export const SAVE_FORM = "SAVE_FORM";
+export const POPULATE_FORM = "POPULATE_FORM";
 
 
 export const SIGNUP = "SIGNUP";
@@ -14,5 +13,7 @@ export const SET_TIMEOUT = "SET_TIMEOUT";
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR  = "LOGIN_ERROR";
-export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const LOGIN_TRY = "LOGIN_TRY";
+
+export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
