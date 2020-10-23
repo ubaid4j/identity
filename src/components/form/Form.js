@@ -55,6 +55,21 @@ const Form = ({form, handler, formType}) => {
                                     value={field.value}
                                     onChange={(event) => handler(event, formType, "input")}/>
                             );
+                        case "number":
+                            return (
+                                <TextField
+                                    type={"number"}
+                                    error={field.validation.isTouched && !field.validation.isValid}
+                                    disabled={field.disabled}
+                                    hidden={field.hidden}
+                                    key={field.id}
+                                    required={field.validation.required}
+                                    id={field.id}
+                                    label={field.label}
+                                    variant="outlined"
+                                    value={field.value}
+                                    onChange={(event) => handler(event, formType, "input")}/>
+                            );
                         case "select":
                             return (
                                 <SelectInput
