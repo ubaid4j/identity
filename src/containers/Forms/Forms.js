@@ -225,8 +225,13 @@ const Forms = () => {
             field.value = event.target.value;
             field.validation.isTouched = true;
             field.validation.isValid = checkValidation(field.value, field.validation);
+            if (field.id === 'age') {
+                if (field.value < 1 || field.value > 75) {
+                    field.validation.isValid = false;
+                }
+            }
         }
-        //validation checking
+        //validation checking of whole subform
         if (isValid(subForm)) {
             setSubFormComplete(true);
             setNextButtonDisable(false);

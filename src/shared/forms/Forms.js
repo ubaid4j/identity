@@ -43,7 +43,7 @@ const PERSONAL_INFO = {
     age: {
         disabled: false,
         value: "",
-        type: "text",
+        type: "number",
         validation: {
             required: true,
             minLength: 2,
