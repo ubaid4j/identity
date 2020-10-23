@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {makeStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash'
 import {updateForm} from "../../store/actions/Form";
 import DialogView from "../../components/modal/DialogView";
+import {UserContext} from "../../providers/UserProvider";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,17 +49,50 @@ function getSteps() {
 const Forms = () => {
     const classes = useStyles();
     const [formType, setFormType] = React.useState(formTypes[0]);
+    const [isSubFormComplete, setSubFormComplete] = useState(false);
     const steps = getSteps();
 
+    const user = useContext(UserContext);
+
     const dispatch = useDispatch();
-    const submitFormInfo = useCallback((info, id) => dispatch(updateForm(info, id)), [dispatch]);
+    const submitFormInfo = useCallback((info, id, user) => dispatch(updateForm(info, id, user)), [dispatch]);
     const formId = useSelector(state => state.form.formId);
-    const isFormUpdating = useSelector(state => state.form.isUpdating);
+    const form = useSelector(state => state.form.form);
+    // const isFormUpdating = useSelector(state => state.form.isUpdating);
 
     const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
     const [isNextButtonDisable, setNextButtonDisable] = useState(true);
 
     const [isModalOpen, setModalOpen] = useState(false);
+
+    useEffect(() => {
+        console.log("Use Effect of Forms.js formId ---> ", formId);
+        if (formId !== null) {
+            const newIdentityForm = _.clone(identityForm);
+            for (let key in newIdentityForm) {
+                const subForm = newIdentityForm[key];
+                const subRemoteForm = form[key];
+                for (let field in subRemoteForm) {
+                    if (field === 'isCompleted') continue;
+                    if (subRemoteForm.hasOwnProperty(field)) {
+                        if (subRemoteForm.isCompleted) {
+                            setSubFormComplete(true);
+                            subForm[field].value = subRemoteForm[field];
+                            subForm[field].validation.isValid = true;
+                            subForm[field].validation.isTouched = true;
+                            console.log(subForm[field]);
+                            console.log(subRemoteForm[field])
+                        }
+                    }
+                }
+            }
+            console.log("Use Effect of Forms.js formId ---> ", newIdentityForm);
+            setIdentityForm(newIdentityForm);
+            setNextButtonEnable(formTypes[0]);
+
+        }
+
+    }, [form]);
 
     function getFormData() {
         const form = _.clone(identityForm);
@@ -66,11 +100,15 @@ const Forms = () => {
         for (let key in form) {
             const subForm = form[key];
             let info = {};
-            for (let key in subForm) {
-                if (subForm.hasOwnProperty(key)) {
-                    const value = subForm[key];
+            const subFormTypes = formTypes.slice(0, formType.step + 1).map(value => value.value);
+            if (subFormTypes.includes(key)) {
+                info['isCompleted'] = isSubFormComplete;
+            }
+            for (let subKey in subForm) {
+                if (subForm.hasOwnProperty(subKey)) {
+                    const value = subForm[subKey];
                     if (!value.disabled) {
-                        info[key] = value['value'];
+                        info[subKey] = value['value'];
                     }
                 }
             }
@@ -85,6 +123,7 @@ const Forms = () => {
             const subForm = newIdentityForm[key];
             if (subForm === IDENTITY_FORM.PROFESSIONAL_INFO || subForm === IDENTITY_FORM.EXCISE_INFO || subForm === IDENTITY_FORM.RESIDENT_INFO) {
                 for (let key in subForm) {
+                    if (key === 'isCompleted') continue;
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
                         if (field.type === 'check') {
@@ -115,8 +154,7 @@ const Forms = () => {
         setModalOpen(false);
         const formData = getFormData();
         formData['isFormCompleted'] = true;
-        formData['useId'] = 1234;
-        submitFormInfo(formData, formId);
+        submitFormInfo(formData, formId, user);
         setFormType(formTypes[0]);
         setNextButtonDisable(true);
         clearFormData();
@@ -125,8 +163,7 @@ const Forms = () => {
     const handleNext = () => {
         const formData = getFormData();
         formData['isFormCompleted'] = false;
-        formData['useId'] = 1234;
-        submitFormInfo(formData, formId);
+        submitFormInfo(formData, formId, user);
         setFormType((prevActiveStep) => {
             setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
             return formTypes[prevActiveStep.step + 1]
@@ -191,8 +228,10 @@ const Forms = () => {
         }
         //validation checking
         if (isValid(subForm)) {
+            setSubFormComplete(true);
             setNextButtonDisable(false);
         } else {
+            setSubFormComplete(false);
             setNextButtonDisable(true)
         }
         //validation checking end
@@ -206,6 +245,7 @@ const Forms = () => {
 
     const isValid = (subForm) => {
         for (let key in subForm) {
+            if (key === 'isCompleted') continue;
             if (subForm.hasOwnProperty(key)) {
                 const field = subForm[key];
                 console.log("Field: -> ", field);

@@ -30,10 +30,11 @@ const useStyles = makeStyles((theme) => ({
 const Form = ({form, handler, formType}) => {
     const classes = useStyles();
 
-    const fields = Object.keys(form).map(key => {
-        form[key]['id'] = key
-        return form[key];
-    });
+    const fields = Object.keys(form).filter(key => key !== 'isCompleted')
+        .map(key => {
+            form[key]['id'] = key
+            return form[key];
+        });
 
     return (
         <form className={classes.root}>
