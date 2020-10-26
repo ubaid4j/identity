@@ -53,8 +53,6 @@ const Welcome = () => {
     const isFormTouched = useSelector(state => state.login.formInfo.isFormTouched);
     const formInfoView = useRef();
 
-    //TODO Check out the flow and write down small chunks and do it in incremental style 23-Oct-2020
-
 
     useEffect(() => {
         let info = null;
