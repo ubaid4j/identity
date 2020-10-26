@@ -243,11 +243,24 @@ const Forms = () => {
                 case 'metricMarks':
                     if (!field.value.includes('%')) {
                         field.helperText = "% sign is missing";
+                        field.validation.isValid = false;
                     }
                     break;
                 case 'intermediateMarks':
                     if (!field.value.includes('%')) {
                         field.helperText = "% sign is missing";
+                        field.validation.isValid = false;
+                    }
+                    break;
+                    //TODO Mobile Validation 23 October 2020
+                case 'mobileNumber':
+                    const pattern = /^[+][9][2][-][3][0-4][0-9][-][0-9]{7}$/g
+                    if (!pattern.test(field.value)) {
+                        field.helperText = 'Mobile Number should be in this pattern +92-3xx-xxxxxx';
+                        field.validation.isValid = false;
+                    } else {
+                        field.helperText = "";
+                        field.validation.isValid = true;
                     }
                     break;
                 default:

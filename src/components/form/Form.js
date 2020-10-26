@@ -54,6 +54,7 @@ const Form = ({form, handler, formType}) => {
                                     label={field.label}
                                     variant="outlined"
                                     value={field.value}
+                                    placeholder={field.placeholder}
                                     onChange={(event) => handler(event, formType, "input")}/>
                             );
                         case "number":
