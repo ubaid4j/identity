@@ -252,7 +252,6 @@ const Forms = () => {
                         field.validation.isValid = false;
                     }
                     break;
-                    //TODO Mobile Validation 23 October 2020
                 case 'mobileNumber':
                     const pattern = /^[+][9][2][-][3][0-4][0-9][-][0-9]{7}$/g
                     if (!pattern.test(field.value)) {

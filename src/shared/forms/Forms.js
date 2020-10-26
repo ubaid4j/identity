@@ -241,7 +241,7 @@ const RESIDENT_INFO = {
             minLength: 4,
             maxLength: 10,
             isTouched: false,
-            isValid: true
+            isValid: false
         },
         label: "House Number"
     }
