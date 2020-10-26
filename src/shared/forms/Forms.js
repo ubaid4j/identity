@@ -67,6 +67,7 @@ const PERSONAL_INFO = {
         type: "text",
         error: false,
         helperText: "",
+        placeholder: "+92-3xx-xxxxxxx",
         validation: {
             required: true,
             minLength: 11,
