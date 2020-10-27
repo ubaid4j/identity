@@ -48,11 +48,11 @@ const Welcome = () => {
 
     const user = useContext(UserContext);
 
-    const formId = useSelector(state => state.login.formInfo.formId);
-    const isFormCompleted = useSelector(state => state.login.formInfo.isFormCompleted);
-    const isFormTouched = useSelector(state => state.login.formInfo.isFormTouched);
-    const formInfoView = useRef();
+    const formId = useSelector(state => state.login.formInfo ? state.login.formInfo.formId : null);
+    const isFormCompleted = useSelector(state => state.login.formInfo ? state.login.formInfo.isFormCompleted : null);
+    const isFormTouched = useSelector(state => state.login.formInfo ? state.login.formInfo.isFormTouched : null);
 
+    const formInfoView = useRef();
 
     useEffect(() => {
         let info = null;
