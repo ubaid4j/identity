@@ -1,5 +1,5 @@
 export const NEXT_FORM = "NEXT_FORM";
-export const HALT_FORM = "HALT_FORM";
+export const REMOVE_FORM = "HALT_FORM";
 export const FORM_UPDATING = "FORM_UPDATING";
 export const POPULATE_FORM = "POPULATE_FORM";
 
