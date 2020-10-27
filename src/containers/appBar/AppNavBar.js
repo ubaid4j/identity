@@ -1,9 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {MenuItem, Typography} from '@material-ui/core';
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,19 +28,21 @@ const useStyles = makeStyles((theme) => ({
 export default function AppNavBar() {
     const classes = useStyles();
 
+    const userId = useSelector(state => state.login.id);
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Typography className={classes.title}>Identity</Typography>
-                    <Link to="/identity/create" style={{ textDecoration: 'none', outline: "none" }}>
+                    <Link to="/identity/create" style={{textDecoration: 'none', outline: "none"}}>
                         <MenuItem style={{color: "white"}}>Home</MenuItem>
                     </Link>
-                    <Link to="#" style={{ textDecoration: 'none', outline: "none" }}>
+                    <Link to="#" style={{textDecoration: 'none', outline: "none"}}>
                         <MenuItem style={{color: "white"}}>Form Preview</MenuItem>
                     </Link>
-                    <Link to="#" style={{ textDecoration: 'none', outline: "none" }}>
-                        <MenuItem style={{color: "white"}}>Auth</MenuItem>
+                    <Link to="/logout" style={{textDecoration: 'none', outline: "none"}}>
+                        <MenuItem style={{color: "white"}}>{userId ? "Logout" : null}</MenuItem>
                     </Link>
                 </Toolbar>
             </AppBar>

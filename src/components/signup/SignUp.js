@@ -224,7 +224,6 @@ const SignUp = () => {
             formData[key] = newFormData[key].value;
             return null;
         });
-        console.log('Submitting Form: -> ', formData);
         handleSignup(formData);
     }
 

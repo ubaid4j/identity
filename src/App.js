@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import './App.css';
 import Layout from "./hoc/Layout/Layout";
 import Forms from "./containers/Forms/Forms";
-import {Route, Switch} from "react-router";
+import {Redirect, Route, Switch} from "react-router";
 import Preview from "./containers/preview/Preview";
 import UserProvider from "./providers/UserProvider";
 import GuardedRoute from "./hoc/gaurdedRoute/GaurdedRoute";
@@ -10,6 +10,7 @@ import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import SignUp from "./components/signup/SignUp";
 import Welcome from "./components/welcome/Welcome";
+import Logout from "./components/logout/Logout";
 
 function App() {
 
@@ -19,10 +20,11 @@ function App() {
                 <GuardedRoute path="/identity/create" exact component={Forms} />
                 <GuardedRoute path="/identity/preview" exact component={Preview} />
                 <GuardedRoute path="/identity/welcome" exact component={Welcome} />
+                <GuardedRoute path={"/logout"} exact component={Logout} />
                 <Route path="/identity/signup" exact component={SignUp}/>
                 <Route path="/identity/login" exact component={Login}/>
                 <Route path="/identity" exact component={Home}/>
-                {/*<Redirect to="/identity"/>*/}
+                <Route render={() => <Redirect to="/identity" />}/>
             </Suspense>
         </Switch>
     );
