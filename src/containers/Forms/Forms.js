@@ -88,7 +88,7 @@ const Forms = () => {
 
         }
 
-    }, [form]);
+    }, []);
 
     function getFormData() {
         const form = _.clone(identityForm);
