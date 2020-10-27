@@ -41,7 +41,7 @@ export const TryLoginHandler = () => {
                     const [entityId] = Object.keys(response.data);
                     const [infoObject] = Object.keys(response.data).map(key => response.data[key]);
                     dispatch(LoginSuccess(infoObject.username, token, infoObject.userId, entityId, infoObject.formInfo));
-                    const formId = infoObject.formInfo.formId;
+                    const formId = infoObject.formInfo ? infoObject.formInfo.formId : null;
                     if (formId) {
                         dispatch(PopulateFormHandler(formId))
                     }
