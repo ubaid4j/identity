@@ -5,7 +5,6 @@ import {UserContext} from "../../providers/UserProvider";
 const GuardedRoute = ({component: Component, ...rest}) => {
     const user = useContext(UserContext);
 
-    console.log("GaurdedRoute.js executing: user ----> ", user);
 
     return (
         <Route {...rest} render={(props) => (

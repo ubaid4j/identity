@@ -20,12 +20,11 @@ const LoginReducer = (state = initialState, action) => {
         case actionTypes.LOGIN_START:
             return {...state, isLogin: false, loginStart: true, loginError: false, formInfo: null}
         case actionTypes.LOGIN_SUCCESS:
-            console.log(action);
             return {...state, isLogin: true, loginStart: false, loginError: false, username: action.username, token: action.token, id: action.id, entityId: action.entityId, formInfo: action.formInfo}
         case actionTypes.LOGIN_ERROR:
             return {...state, isLogin: false, loginStart: false, loginError: true, formInfo: null}
         case actionTypes.LOGOUT:
-            return {...state, isLogin: false, loginStart: false, loginError: false, username: null, token: null, formInfo: null}
+            return {...state, isLogin: false, loginStart: false, loginError: false, username: null, id: null, entityId: null, token: null, formInfo: null}
         case actionTypes.UPDATE_USER_INFO:
             return {...state, formInfo: action.formInfo}
         default:
