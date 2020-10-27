@@ -3,10 +3,23 @@ import * as actionTypes from './ActionTypes'
 import RequestResolver from "../../requestHandler/RequestHandler";
 import {PopulateFormHandler} from "./Form";
 
+function _handleUserResponse(response, dispatch, token) {
+    const [entityId] = Object.keys(response.data);
+    const [infoObject] = Object.keys(response.data).map(key => response.data[key]);
+    dispatch(LoginSuccess(infoObject.username, token, infoObject.userId, entityId, infoObject.formInfo));
+    const formId = infoObject.formInfo ? infoObject.formInfo.formId : null;
+    if (formId) {
+        dispatch(PopulateFormHandler(formId))
+    }
+}
+
 export const LoginHandler = (username, password) => {
     return dispatch => {
         dispatch(LoginStart())
-        axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_vVv_YXI-3RAqIfCYeRYmhqke8Uv7xw`, {"email": username, "password": password})
+        axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_vVv_YXI-3RAqIfCYeRYmhqke8Uv7xw`, {
+            "email": username,
+            "password": password
+        })
             .then(response => {
                 const token = response.data.idToken;
                 const userId = response.data.localId;
@@ -15,14 +28,11 @@ export const LoginHandler = (username, password) => {
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('expiryTime', expiryTime);
                 RequestResolver.get(`users.json?orderBy="userId"&equalTo="${response.data.localId}"`)
-                    .then(response => {
-                        const [entityId] = Object.keys(response.data);
-                        const [infoObject] = Object.keys(response.data).map(key => response.data[key]);
-                        dispatch(LoginSuccess(infoObject.username, token, infoObject.userId, entityId, infoObject.formInfo));
-                    }).catch(error => {
+                    .then(response => _handleUserResponse(response, dispatch, token))
+                    .catch(error => {
                         console.log(error);
                         console.log(error);
-                });
+                    });
             })
             .catch(error => {
                 dispatch(LoginError())
@@ -37,18 +47,11 @@ export const TryLoginHandler = () => {
         const token = localStorage.getItem('token');
         if (userId && token) {
             RequestResolver.get(`users.json?orderBy="userId"&equalTo="${userId}"`)
-                .then(response => {
-                    const [entityId] = Object.keys(response.data);
-                    const [infoObject] = Object.keys(response.data).map(key => response.data[key]);
-                    dispatch(LoginSuccess(infoObject.username, token, infoObject.userId, entityId, infoObject.formInfo));
-                    const formId = infoObject.formInfo ? infoObject.formInfo.formId : null;
-                    if (formId) {
-                        dispatch(PopulateFormHandler(formId))
-                    }
-                }).catch(error => {
-                console.log(error);
-                dispatch(LoginError());
-            });
+                .then(response => _handleUserResponse(response, dispatch, token))
+                .catch(error => {
+                    console.log(error);
+                    dispatch(LoginError());
+                });
         }
     }
 }
