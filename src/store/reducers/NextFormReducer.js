@@ -12,8 +12,8 @@ const NextFormReducer = (state=initialState, action) => {
     switch (action.type) {
         case actionTypes.NEXT_FORM:
             return {...state, form: action.info, formId: action.formId, isUpdating: false}
-        case actionTypes.HALT_FORM:
-            return {...state, error: action.error}
+        case actionTypes.REMOVE_FORM:
+            return {...state, formId: null, form: null, isCompleted: false, error: null, isUpdating: false}
         case actionTypes.FORM_UPDATING:
             return {...state, isUpdating: true}
         case actionTypes.POPULATE_FORM:
