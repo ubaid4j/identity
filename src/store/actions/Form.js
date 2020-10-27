@@ -21,7 +21,7 @@ export const updateForm = (form, id, user) => {
         if (id) {
             dispatch(formUpdating())
             RequestResolver.put(`/identity/${id}.json`, form)
-                .then(response => {
+                .then(() => {
                     _updateUserInfo(id, form, user, dispatch);
                     dispatch(nextForm(form, id));
                 })
@@ -50,14 +50,6 @@ export const nextForm = (info, id) => {
     }
 }
 
-export const haltForm = (error) => {
-    return {
-        type: actionTypes.HALT_FORM,
-        info: null,
-        error: error
-    }
-}
-
 export const formUpdating = () => {
     return {
         type: actionTypes.FORM_UPDATING,
@@ -68,7 +60,6 @@ export const PopulateFormHandler = (formId) => {
     return dispatch => {
         RequestResolver.get(`/identity/${formId}.json`)
             .then(response => {
-                console.log(response);
                 dispatch(PopulateForm(response.data, formId));
             })
             .catch(error => {

@@ -24,7 +24,6 @@ const UserProvider = (props) => {
         entityId: entityId
     }
 
-    console.log('User Provider -> ', newUser);
     return (
         <UserContext.Provider value={newUser}>
             {props.children}

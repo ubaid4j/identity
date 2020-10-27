@@ -8,7 +8,6 @@ export const LoginHandler = (username, password) => {
         dispatch(LoginStart())
         axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_vVv_YXI-3RAqIfCYeRYmhqke8Uv7xw`, {"email": username, "password": password})
             .then(response => {
-                console.log(response);
                 const token = response.data.idToken;
                 const userId = response.data.localId;
                 const expiryTime = response.data.expiresIn;
@@ -17,10 +16,8 @@ export const LoginHandler = (username, password) => {
                 localStorage.setItem('expiryTime', expiryTime);
                 RequestResolver.get(`users.json?orderBy="userId"&equalTo="${response.data.localId}"`)
                     .then(response => {
-                        console.log(response);
                         const [entityId] = Object.keys(response.data);
                         const [infoObject] = Object.keys(response.data).map(key => response.data[key]);
-                        console.log(infoObject);
                         dispatch(LoginSuccess(infoObject.username, token, infoObject.userId, entityId, infoObject.formInfo));
                     }).catch(error => {
                         console.log(error);
@@ -41,11 +38,8 @@ export const TryLoginHandler = () => {
         if (userId && token) {
             RequestResolver.get(`users.json?orderBy="userId"&equalTo="${userId}"`)
                 .then(response => {
-                    console.log(response);
                     const [entityId] = Object.keys(response.data);
-                    console.log(entityId);
                     const [infoObject] = Object.keys(response.data).map(key => response.data[key]);
-                    console.log(infoObject);
                     dispatch(LoginSuccess(infoObject.username, token, infoObject.userId, entityId, infoObject.formInfo));
                     const formId = infoObject.formInfo.formId;
                     if (formId) {

@@ -7,7 +7,6 @@ export const signup = (userData) => {
         dispatch(SignUpStart())
         axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAU_vVv_YXI-3RAqIfCYeRYmhqke8Uv7xw`, userData)
             .then(response => {
-                console.log(response);
                 RequestResolver.post('/users.json', {username: userData.firstName + ' ' + userData.lastName, userId: response.data.localId})
                     .then(() => {
                         dispatch(storeToken(response.data.idToken, response.data.expiresIn, response.data.localId))

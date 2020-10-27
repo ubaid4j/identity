@@ -66,7 +66,6 @@ const Forms = () => {
     const [isModalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
-        console.log("Use Effect of Forms.js formId ---> ", formId);
         if (formId !== null) {
             const newIdentityForm = _.clone(identityForm);
             for (let key in newIdentityForm) {
@@ -80,13 +79,10 @@ const Forms = () => {
                             subForm[field].value = subRemoteForm[field];
                             subForm[field].validation.isValid = true;
                             subForm[field].validation.isTouched = true;
-                            console.log(subForm[field]);
-                            console.log(subRemoteForm[field])
                         }
                     }
                 }
             }
-            console.log("Use Effect of Forms.js formId ---> ", newIdentityForm);
             setIdentityForm(newIdentityForm);
             setNextButtonEnable(formTypes[0]);
 
@@ -202,7 +198,6 @@ const Forms = () => {
                 }
             }
         }
-        console.log('New Identity Form: => ', newIdentityForm);
         setIdentityForm(newIdentityForm);
     }
 
@@ -289,9 +284,7 @@ const Forms = () => {
             if (key === 'isCompleted') continue;
             if (subForm.hasOwnProperty(key)) {
                 const field = subForm[key];
-                console.log("Field: -> ", field);
                 if (!field.disabled && !field.validation.isValid) {
-                    console.log('Form is not valid -> returning false');
                     return false;
                 }
             }
