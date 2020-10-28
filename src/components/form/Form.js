@@ -77,6 +77,8 @@ const Form = ({form, handler, formType}) => {
                             return (
                                 <SelectInput
                                     required={field.validation.required}
+                                    error={field.validation.isTouched && !field.validation.isValid}
+                                    helperText={field.helperText}
                                     disabled={field.disabled}
                                     value={field.value}
                                     label={field.label}
