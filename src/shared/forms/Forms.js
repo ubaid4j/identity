@@ -9,8 +9,6 @@ const PERSONAL_INFO = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 3,
-            maxLength: 255,
             isTouched: false,
             isValid: false
         },
@@ -24,8 +22,6 @@ const PERSONAL_INFO = {
         helperText: "",
         validation: {
             required: false,
-            minLength: 0,
-            maxLength: 255,
             isTouched: false,
             isValid: false
         },
@@ -39,8 +35,6 @@ const PERSONAL_INFO = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 3,
-            maxLength: 255,
             isTouched: false,
             isValid: false
         },
@@ -54,8 +48,6 @@ const PERSONAL_INFO = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 2,
-            maxLength: 2,
             isTouched: false,
             isValid: false
         },
@@ -70,8 +62,6 @@ const PERSONAL_INFO = {
         placeholder: "+92-3xx-xxxxxxx",
         validation: {
             required: true,
-            minLength: 11,
-            maxLength: 16,
             isTouched: false,
             isValid: false
         },
@@ -88,8 +78,6 @@ const EDUCATIONAL_INFO = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 3,
-            maxLength: 3,
             isTouched: false,
             isValid: false
 
@@ -104,8 +92,6 @@ const EDUCATIONAL_INFO = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 3,
-            maxLength: 3,
             isTouched: false,
             isValid: false
 
@@ -121,8 +107,6 @@ const EDUCATIONAL_INFO = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 1,
-            maxLength: 6,
             isTouched: false,
             isValid: false
 
@@ -151,8 +135,6 @@ const PROFESSIONAL_INFO  = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 5,
-            maxLength: 255,
             isTouched: false,
             isValid: false
         },
@@ -166,8 +148,6 @@ const PROFESSIONAL_INFO  = {
         helperText: "",
         validation: {
             required: true,
-            minLength: 5,
-            maxLength: 255,
             isTouched: false,
             isValid: false
         },
@@ -188,17 +168,15 @@ const EXCISE_INFO = {
     },
     type: {
         disabled: true,
-        value: "",
+        value: "Bike",
         type: "select",
         options: ["Bike", "SVM"],
         error: false,
         helperText: "",
         validation: {
             required: true,
-            minLength: 1,
-            maxLength: 255,
             isTouched: false,
-            isValid: false
+            isValid: true
         },
         label: "Type"
     },
@@ -208,10 +186,9 @@ const EXCISE_INFO = {
         value: "",
         error: false,
         helperText: "",
+        placeholder: "AKK-2915",
         validation: {
             required: true,
-            minLength: 4,
-            maxLength: 10,
             isTouched: false,
             isValid: false
         },
@@ -228,7 +205,7 @@ const RESIDENT_INFO = {
             required: false,
             isValid: true
         },
-        label: "Are you own a house?"
+        label: "Do you own a house?"
     },
     houseNumber: {
         disabled: true,
@@ -236,10 +213,9 @@ const RESIDENT_INFO = {
         type: "text",
         error: false,
         helperText: "",
+        placeholder: "XXX-DDDDDD",
         validation: {
             required: true,
-            minLength: 4,
-            maxLength: 10,
             isTouched: false,
             isValid: false
         },
