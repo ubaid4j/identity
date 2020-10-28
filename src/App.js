@@ -11,6 +11,7 @@ import Login from "./components/login/Login";
 import SignUp from "./components/signup/SignUp";
 import Welcome from "./components/welcome/Welcome";
 import Logout from "./components/logout/Logout";
+import Congrats from "./components/congrats/Congrats";
 
 function App() {
 
@@ -21,10 +22,12 @@ function App() {
                 <GuardedRoute path="/identity/preview" exact component={Preview} />
                 <GuardedRoute path="/identity/welcome" exact component={Welcome} />
                 <GuardedRoute path={"/logout"} exact component={Logout} />
+                <GuardedRoute path="/identity/congrats" component={Congrats}/>
                 <Route path="/identity/signup" exact component={SignUp}/>
                 <Route path="/identity/login" exact component={Login}/>
                 <Route path="/identity" exact component={Home}/>
                 <Route render={() => <Redirect to="/identity" />}/>
+                {/*<Redirect to="/identity/preview" />*/}
             </Suspense>
         </Switch>
     );

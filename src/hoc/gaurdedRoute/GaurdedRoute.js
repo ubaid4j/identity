@@ -4,8 +4,6 @@ import {UserContext} from "../../providers/UserProvider";
 
 const GuardedRoute = ({component: Component, ...rest}) => {
     const user = useContext(UserContext);
-
-
     return (
         <Route {...rest} render={(props) => (
             user.isLogin === true
