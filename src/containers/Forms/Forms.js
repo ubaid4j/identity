@@ -14,6 +14,7 @@ import _ from 'lodash'
 import {updateForm} from "../../store/actions/Form";
 import DialogView from "../../components/modal/DialogView";
 import {UserContext} from "../../providers/UserProvider";
+import {Redirect} from "react-router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,13 +59,16 @@ const Forms = () => {
     const submitFormInfo = useCallback((info, id, user) => dispatch(updateForm(info, id, user)), [dispatch]);
     const formId = useSelector(state => state.form.formId);
     const form = useSelector(state => state.form.form);
+    const isFormComplete = useSelector(state => state.login.formInfo ? state.login.formInfo.isFormCompleted : null)
 
     const [identityForm, setIdentityForm] = useState(IDENTITY_FORM);
     const [isNextButtonDisable, setNextButtonDisable] = useState(true);
 
     const [isModalOpen, setModalOpen] = useState(false);
 
+
     useEffect(() => {
+        clearFormData();
         if (formId !== null) {
             const newIdentityForm = _.clone(identityForm);
             for (let key in newIdentityForm) {
@@ -84,7 +88,6 @@ const Forms = () => {
             }
             setIdentityForm(newIdentityForm);
             setNextButtonEnable(formTypes[0]);
-
         }
 
     }, []);
@@ -334,6 +337,10 @@ const Forms = () => {
         return true;
     }
 
+    if (isFormComplete) {
+        return <Redirect to="/identity/congrats" />
+    }
+
     return (
         <div className={classes.root}>
             <Stepper activeStep={formType.step} alternativeLabel>
@@ -380,7 +387,7 @@ const Forms = () => {
                     </div>
                 )}
             </div>
-            <DialogView form={identityForm} open={isModalOpen} modalHandler={() => setModalOpen(false)} saveFormHandler={handleSaveForm}/>
+            <DialogView form={form} open={isModalOpen} modalHandler={() => setModalOpen(false)} saveFormHandler={handleSaveForm}/>
         </div>
     );
 }

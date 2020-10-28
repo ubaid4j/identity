@@ -35,11 +35,8 @@ export default function AppNavBar() {
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Typography className={classes.title}>Identity</Typography>
-                    <Link to="/identity/create" style={{textDecoration: 'none', outline: "none"}}>
+                    <Link to="/identity/welcome" style={{textDecoration: 'none', outline: "none"}}>
                         <MenuItem style={{color: "white"}}>Home</MenuItem>
-                    </Link>
-                    <Link to="#" style={{textDecoration: 'none', outline: "none"}}>
-                        <MenuItem style={{color: "white"}}>Form Preview</MenuItem>
                     </Link>
                     <Link to="/logout" style={{textDecoration: 'none', outline: "none"}}>
                         <MenuItem style={{color: "white"}}>{userId ? "Logout" : null}</MenuItem>
