@@ -4,7 +4,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Form from "../../components/form/Form";
 import Paper from '@material-ui/core/Paper';
 import IDENTITY_FORM from "../../shared/forms/Forms";
@@ -15,6 +14,8 @@ import {updateForm} from "../../store/actions/Form";
 import DialogView from "../../components/modal/DialogView";
 import {UserContext} from "../../providers/UserProvider";
 import {Redirect} from "react-router";
+import MobileStepper from '@material-ui/core/MobileStepper';
+import {Container} from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -185,11 +186,6 @@ const Forms = () => {
         }
     }
 
-
-    const handleReset = () => {
-        setFormType(formTypes[0]);
-    };
-
     const toggleInputsDisabled = (formType, isDisable) => {
         const newIdentityForm = _.clone(identityForm);
         const subForm = newIdentityForm[formType.value];
@@ -338,57 +334,100 @@ const Forms = () => {
     }
 
     if (isFormComplete) {
-        return <Redirect to="/identity/congrats" />
+        return <Redirect to="/identity/congrats"/>
     }
 
+    const mobileStepper = (
+        <MobileStepper activeStep={formType.step} alternativeLabel backButton={
+            <Button
+                disabled={formType.step === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+            >
+                Back
+            </Button>
+
+        } nextButton={
+            formType.step !== steps.length - 1 ?
+                <Button variant="contained" color="primary" onClick={handleNext}
+                        disabled={isNextButtonDisable}>
+                    Next
+                </Button> :
+                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
+                        disabled={isNextButtonDisable}>
+                    Preview
+                </Button>
+
+        } steps={
+            steps.map((label) => (
+                <Step
+                    key={label}
+                    className={classes.stepProgress}
+                >
+                    <StepLabel>{label}</StepLabel>
+                </Step>
+            ))
+        }>
+        </MobileStepper>
+
+    );
+
+    const desktopStepper = (
+        <Stepper activeStep={formType.step} alternativeLabel>
+            {steps.map((label) => (
+                <Step
+                    key={label}
+                    className={classes.stepProgress}
+                >
+                    <StepLabel>{label}</StepLabel>
+                </Step>
+            ))}
+        </Stepper>
+    );
+
+    const desktopButton = (
+        <div>
+            <Button
+                disabled={formType.step === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+            >
+                Back
+            </Button>
+            {
+                formType.step !== steps.length - 1 ?
+                    <Button variant="contained" color="primary" onClick={handleNext}
+                            disabled={isNextButtonDisable}>
+                        Next
+                    </Button> :
+                    <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
+                            disabled={isNextButtonDisable}>
+                        Preview
+                    </Button>
+            }
+        </div>
+    );
+
     return (
-        <div className={classes.root}>
-            <Stepper activeStep={formType.step} alternativeLabel>
-                {steps.map((label) => (
-                    <Step
-                        key={label}
-                        className={classes.stepProgress}
-                    >
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            <div>
-                {formType.step === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>All steps completed</Typography>
-                        <Button onClick={handleReset}>Reset</Button>
-                    </div>
-                ) : (
+        <Container>
+            {
+                window.screen.width < 600 ? mobileStepper : desktopStepper
+            }
+            <div className={classes.root}>
+                <div>
                     <div>
                         <Paper elevation={3} className={classes.paper}>
                             <Form form={identityForm[formType.value]} formType={formType} handler={changeHandler}/>
                         </Paper>
-                        <div>
-                            <Button
-                                disabled={formType.step === 0}
-                                onClick={handleBack}
-                                className={classes.backButton}
-                            >
-                                Back
-                            </Button>
-                            {
-                                formType.step !== steps.length - 1 ?
-                                    <Button variant="contained" color="primary" onClick={handleNext}
-                                            disabled={isNextButtonDisable}>
-                                        Next
-                                    </Button> :
-                                    <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                                            disabled={isNextButtonDisable}>
-                                        Preview
-                                    </Button>
-                            }
-                        </div>
                     </div>
-                )}
+                    {
+                        window.screen.width >= 600 ? desktopButton : null
+                    }
+                </div>
+                <DialogView form={form} open={isModalOpen} modalHandler={() => setModalOpen(false)}
+                            saveFormHandler={handleSaveForm}/>
             </div>
-            <DialogView form={form} open={isModalOpen} modalHandler={() => setModalOpen(false)} saveFormHandler={handleSaveForm}/>
-        </div>
+        </Container>
     );
 }
 
