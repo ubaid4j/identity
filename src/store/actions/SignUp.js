@@ -1,6 +1,7 @@
 import RequestResolver from "../../requestHandler/RequestHandler";
 import axios from 'axios';
 import * as actionTypes from './ActionTypes';
+import ErrorHandler from "./Error";
 
 export const signup = (userData) => {
     return dispatch => {
@@ -15,11 +16,13 @@ export const signup = (userData) => {
                     .catch(error => {
                         console.log(error);
                         dispatch(ErrorInSignup(error.message));
+                        dispatch(ErrorHandler(true, error.message))
                     })
             })
             .catch(error => {
                 console.log(error);
                 dispatch(ErrorInSignup(error.message));
+                dispatch(ErrorHandler(true, error.message))
             })
     }
 }

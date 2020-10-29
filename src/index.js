@@ -12,6 +12,7 @@ import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import AuthReducer from "./store/reducers/AuthReducer";
 import LoginReducer from "./store/reducers/LoginReducer";
+import ErrorReducer from "./store/reducers/ErrorReducer";
 
 
 const env = process.env.NODE_ENV === 'development'
@@ -20,7 +21,8 @@ const rootReducer = combineReducers(
     {
         form: NextFormReducer,
         auth: AuthReducer,
-        login: LoginReducer
+        login: LoginReducer,
+        error: ErrorReducer
     }
 )
 
