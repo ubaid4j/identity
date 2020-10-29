@@ -17,3 +17,8 @@ export const LOGOUT = "LOGOUT";
 export const LOGIN_TRY = "LOGIN_TRY";
 
 export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
+
+export const ERROR = "ERROR";
+export const REMOVE_LOGIN_ERROR = "REMOVE_LOGIN_ERROR";
+export const REMOVE_SIGNUP_ERROR = "REMOVE_SIGNUP_ERROR";
+export const REMOVE_FORM_ERROR = "REMOVE_FORM_ERROR";
