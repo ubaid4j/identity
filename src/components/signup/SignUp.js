@@ -59,6 +59,7 @@ const SignUp = () => {
     const isLogin = useSelector(state => state.auth.isLogin);
     const isSignUpLoading = useSelector(state => state.auth.isSignUpLoading);
 
+    const [isSignUpButtonEnable, setSignUpButtonEnable] = useState(false);
 
     const SIGNUP_FORM = {
         firstName: {
@@ -167,6 +168,7 @@ const SignUp = () => {
             validatePassword(newForm[fieldId]);
         }
         setForm(newForm);
+        setSignUpButtonEnable(validateWholeForm(newForm));
     }
 
     const validateFieldLength = field => {
@@ -176,6 +178,7 @@ const SignUp = () => {
                 field.error = true;
                 field.helperText = 'Min Val: ' + field.validation.minLength + ', Max Val: ' + field.validation.maxLength;
             } else {
+                field.validation.isValid = true;
                 field.error = false;
                 field.helperText = '';
             }
@@ -191,6 +194,7 @@ const SignUp = () => {
             emailField.error = true;
             emailField.helperText = 'Invalid Email Address';
         } else {
+            emailField.validation.isValid = true;
             emailField.error = false;
             emailField.helperText = '';
         }
@@ -210,6 +214,7 @@ const SignUp = () => {
             passwordField.helperText = 'Password should at least contain an upper case letter, a lower case letter, a digit and a special symbol and greater than 4 digits';
 
         } else {
+            passwordField.validation.isValid = true;
             passwordField.error = false;
             passwordField.helperText = '';
         }
@@ -227,6 +232,17 @@ const SignUp = () => {
         handleSignup(formData);
     }
 
+    const validateWholeForm = (form) => {
+        let keys = Object.keys(form);
+        for (let key in keys) {
+            const field = form[keys[key]];
+            if (!field.validation.isValid) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     if (isLogin) {
         return <Redirect to="/identity/welcome"/>
     }
@@ -241,7 +257,7 @@ const SignUp = () => {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate onSubmit={(event) => signUpHandler(event)}>
+                <form className={classes.form} onSubmit={(event) => signUpHandler(event)}>
                     <Grid container spacing={2}>
                         {
                             Object.keys(form).map(key => {
@@ -274,6 +290,7 @@ const SignUp = () => {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                disabled={!isSignUpButtonEnable}
                             >
                                 Sign Up
                             </Button>
