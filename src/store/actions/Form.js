@@ -1,6 +1,7 @@
 import * as actionTypes from './ActionTypes'
 import RequestResolver from "../../requestHandler/RequestHandler";
 import {UpdateUserInfo} from "./Login";
+import ErrorHandler from "./Error";
 
 const _updateUserInfo = (formId, form, user, dispatch) => {
     const formInfo = {formId: formId, isFormCompleted: form.isFormCompleted, isFormTouched: true}
@@ -27,6 +28,7 @@ export const updateForm = (form, id, user) => {
                 })
                 .catch(error => {
                     console.log(error);
+                    dispatch(ErrorHandler(true, error.message))
                 })
 
         } else {
@@ -37,6 +39,7 @@ export const updateForm = (form, id, user) => {
                 })
                 .catch(error => {
                     console.log(error);
+                    dispatch(ErrorHandler(true, error.message))
                 })
         }
     }
@@ -64,6 +67,7 @@ export const PopulateFormHandler = (formId) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(ErrorHandler(true, error.message))
             })
     }
 }

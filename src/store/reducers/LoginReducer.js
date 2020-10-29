@@ -27,6 +27,8 @@ const LoginReducer = (state = initialState, action) => {
             return {...state, isLogin: false, loginStart: false, loginError: false, username: null, id: null, entityId: null, token: null, formInfo: null}
         case actionTypes.UPDATE_USER_INFO:
             return {...state, formInfo: action.formInfo}
+        case actionTypes.REMOVE_LOGIN_ERROR:
+            return {...state, loginError: false, loginStart: false}
         default:
             return state;
     }

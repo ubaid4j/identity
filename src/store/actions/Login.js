@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as actionTypes from './ActionTypes'
 import RequestResolver from "../../requestHandler/RequestHandler";
 import {PopulateFormHandler} from "./Form";
+import ErrorHandler from "./Error";
 
 function _handleUserResponse(response, dispatch, token) {
     const [entityId] = Object.keys(response.data);
@@ -30,12 +31,12 @@ export const LoginHandler = (username, password) => {
                 RequestResolver.get(`users.json?orderBy="userId"&equalTo="${response.data.localId}"`)
                     .then(response => _handleUserResponse(response, dispatch, token))
                     .catch(error => {
-                        console.log(error);
-                        console.log(error);
+                        dispatch(ErrorHandler(true, error.message))
                     });
             })
             .catch(error => {
-                dispatch(LoginError())
+                // dispatch(LoginError())
+                dispatch(ErrorHandler(true, error.message))
                 console.log(error);
             });
     }
@@ -51,6 +52,7 @@ export const TryLoginHandler = () => {
                 .catch(error => {
                     console.log(error);
                     dispatch(LoginError());
+                    dispatch(ErrorHandler(true, error.message));
                 });
         }
     }
@@ -83,6 +85,12 @@ export const UpdateUserInfo = (formInfo) => {
 const LoginError = () => {
     return {
         type: actionTypes.LOGIN_ERROR,
+    }
+}
+
+export const RemoveLoginError = () => {
+    return {
+        type: actionTypes.REMOVE_LOGIN_ERROR
     }
 }
 
