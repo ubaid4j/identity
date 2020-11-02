@@ -140,8 +140,12 @@ const Forms = () => {
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
                         field.value = "";
-                        field.validation.isValid = false;
-                        field.validation.isTouched = false;
+                        if (field.validation.required) {
+                            field.validation.isValid = false;
+                            field.validation.isTouched = false;
+                        } else {
+                            field.validation.isValid = true;
+                        }
                     }
                 }
             }
