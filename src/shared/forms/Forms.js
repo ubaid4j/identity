@@ -23,7 +23,7 @@ const PERSONAL_INFO = {
         validation: {
             required: false,
             isTouched: false,
-            isValid: false
+            isValid: true
         },
         label: "Middle Name"
     },
