@@ -7,14 +7,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {Link, Redirect} from "react-router-dom";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Avatar from "@material-ui/core/Avatar";
-import FingerprintIcon from "@material-ui/icons/Fingerprint";
-import Grid from "@material-ui/core/Grid";
-import {useDispatch, useSelector} from "react-redux";
-import {TryLoginHandler} from "../../store/actions/Login";
+import {Link, Redirect} from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Avatar from '@material-ui/core/Avatar';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import Grid from '@material-ui/core/Grid';
+import {useDispatch, useSelector} from 'react-redux';
+import {TryLoginHandler} from 'store/actions/Login';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,11 +48,11 @@ const Introduction = () => {
     tryLoginHandler();
 
     if (isLogin) {
-        return <Redirect to="/identity/welcome" />
+        return <Redirect to='/identity/welcome'/>
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component='main' maxWidth='xs'>
             <CssBaseline/>
             <div className={classes.paper}>
                 <Grid container spacing={2}>
@@ -61,26 +61,24 @@ const Introduction = () => {
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
-
                                 >
                                     <Avatar className={classes.avatar}>
                                         <FingerprintIcon/>
                                     </Avatar>
-
                                 </CardMedia>
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
+                                    <Typography gutterBottom variant='h5' component='h2'>
                                         Identity
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
+                                    <Typography variant='body2' color='textSecondary' component='p'>
                                         Identity is the Project initiated by Govt of Pakistan to register yourself from
                                         anywhere.
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to="/identity/login" style={{textDecoration: 'none', outline: "none"}}>
-                                    <Button size="small" color="primary">
+                                <Link to='/identity/login' style={{textDecoration: 'none', outline: 'none'}}>
+                                    <Button size='small' color='primary'>
                                         Sign In
                                     </Button>
                                 </Link>
