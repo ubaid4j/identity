@@ -19,7 +19,7 @@ const AuthReducer = (state = initialState, action) => {
         case actionTypes.SET_TIMEOUT:
             return {...state, timeout: action.timeout}
         case actionTypes.REMOVE_SIGNUP_ERROR:
-            return {...state, error: false}
+            return {...state, error: false, isSignUpLoading: false}
         default:
             return state;
     }

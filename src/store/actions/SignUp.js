@@ -14,15 +14,11 @@ export const signup = (userData) => {
                         dispatch(SignUpFinished({...response.data, username: userData.firstName + ' ' + userData.lastName}))
                     })
                     .catch(error => {
-                        console.log(error);
-                        dispatch(ErrorInSignup(error.message));
-                        dispatch(ErrorHandler(true, error.message))
+                        dispatch(ErrorHandler(true, error.response.data.error.message))
                     })
             })
             .catch(error => {
-                console.log(error);
-                dispatch(ErrorInSignup(error.message));
-                dispatch(ErrorHandler(true, error.message))
+                dispatch(ErrorHandler(true, error.response.data.error.message))
             })
     }
 }
@@ -57,10 +53,8 @@ export const SignUpFinished = (data) => {
     }
 }
 
-export const ErrorInSignup = (error) => {
+export const RemoveSignUpError = () => {
     return {
-        type: actionTypes.SIGNUP_ERROR,
-        payload: null,
-        error: error
+        type: actionTypes.REMOVE_SIGNUP_ERROR
     }
 }

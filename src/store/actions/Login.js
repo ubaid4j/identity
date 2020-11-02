@@ -35,9 +35,7 @@ export const LoginHandler = (username, password) => {
                     });
             })
             .catch(error => {
-                // dispatch(LoginError())
-                dispatch(ErrorHandler(true, error.message))
-                console.log(error);
+                dispatch(ErrorHandler(true, error.response.data.error.message))
             });
     }
 }
@@ -50,9 +48,7 @@ export const TryLoginHandler = () => {
             RequestResolver.get(`users.json?orderBy="userId"&equalTo="${userId}"`)
                 .then(response => _handleUserResponse(response, dispatch, token))
                 .catch(error => {
-                    console.log(error);
-                    dispatch(LoginError());
-                    dispatch(ErrorHandler(true, error.message));
+                    dispatch(ErrorHandler(true, error.response.data.error.message));
                 });
         }
     }
@@ -79,12 +75,6 @@ export const UpdateUserInfo = (formInfo) => {
     return {
         type: actionTypes.UPDATE_USER_INFO,
         formInfo: formInfo
-    }
-}
-
-const LoginError = () => {
-    return {
-        type: actionTypes.LOGIN_ERROR,
     }
 }
 
