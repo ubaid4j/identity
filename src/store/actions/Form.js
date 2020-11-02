@@ -13,7 +13,7 @@ const _updateUserInfo = (formId, form, user, dispatch) => {
         .then(() => {
             dispatch(UpdateUserInfo(formInfo))
         }).catch(error => {
-        console.log(error);
+        dispatch(ErrorHandler(true, error.response.data.error.message));
     })
 }
 
@@ -28,7 +28,7 @@ export const updateForm = (form, id, user) => {
                 })
                 .catch(error => {
                     console.log(error);
-                    dispatch(ErrorHandler(true, error.message))
+                    dispatch(ErrorHandler(true, error.response.data.error.message))
                 })
 
         } else {
@@ -39,7 +39,7 @@ export const updateForm = (form, id, user) => {
                 })
                 .catch(error => {
                     console.log(error);
-                    dispatch(ErrorHandler(true, error.message))
+                    dispatch(ErrorHandler(true, error.response.data.error.message))
                 })
         }
     }
@@ -67,7 +67,7 @@ export const PopulateFormHandler = (formId) => {
             })
             .catch(error => {
                 console.log(error);
-                dispatch(ErrorHandler(true, error.message))
+                dispatch(ErrorHandler(true, error.response.data.error.message))
             })
     }
 }
@@ -78,5 +78,11 @@ export const PopulateForm = (form, formId) => {
         form: form,
         formId: formId,
         isCompleted: form.isFormCompleted
+    }
+}
+
+export const RemoveFormError = () => {
+    return {
+        type: actionTypes.REMOVE_FORM_ERROR
     }
 }
