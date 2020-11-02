@@ -22,6 +22,8 @@ const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
     return (
         <div>
             <Dialog
+                fullWidth={true}
+                maxWidth="md"
                 open={open}
                 onClose={modalHandler}
                 scroll={'paper'}
