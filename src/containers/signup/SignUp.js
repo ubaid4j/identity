@@ -11,9 +11,9 @@ import {Redirect} from 'react-router-dom';
 import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
 import {signup} from 'store/actions/SignUp';
-import {validateEmail, validateFieldLength, validatePassword, validateWholeForm} from 'components/signup/util/Utils';
+import {validateEmail, validateFieldLength, validatePassword, validateWholeForm} from 'shared/util/Utils';
 import SubmitButton from 'components/inputs/SubmitButton';
-import FormSpinner from 'components/login/components/FormSpinner';
+import FormSpinner from 'components/inputs/FormSpinner';
 import CopyRight from 'components/copyright/CopyRight';
 import FormLink from 'components/links/FormLink';
 

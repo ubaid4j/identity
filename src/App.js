@@ -7,10 +7,10 @@ import Preview from "./containers/preview/Preview";
 import UserProvider from "./providers/UserProvider";
 import GuardedRoute from "./hoc/gaurdedRoute/GaurdedRoute";
 import Home from "./components/home/Home";
-import Login from "./components/login/Login";
-import SignUp from "./components/signup/SignUp";
+import Login from "./containers/login/Login";
+import SignUp from "./containers/signup/SignUp";
 import Welcome from "./components/welcome/Welcome";
-import Logout from "./components/logout/Logout";
+import Logout from "./containers/logout/Logout";
 import Congrats from "./components/congrats/Congrats";
 
 function App() {
