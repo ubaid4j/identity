@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import LogoutHandler from "store/actions/LogoutHandler";
+import React, {useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import LogoutHandler from 'store/actions/LogoutHandler';
 
 const Logout = (props) => {
+
     const dispatch = useDispatch();
     const logout = useCallback(() => dispatch(LogoutHandler()), [dispatch]);
 
@@ -11,7 +12,7 @@ const Logout = (props) => {
     useEffect(() => {
         logout();
         if (!userId) {
-            props.location.pathname = "/identity"
+            props.location.pathname = '/identity'
         }
     });
 

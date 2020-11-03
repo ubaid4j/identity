@@ -35,18 +35,13 @@ const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
                     <DialogContentText
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
-                        tabIndex={-1}
-                    >
+                        tabIndex={-1}>
                         <FormPreview form={form} />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={modalHandler} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={saveFormHandler} color="primary">
-                        Save
-                    </Button>
+                    <Button onClick={modalHandler} color="primary">Cancel</Button>
+                    <Button onClick={saveFormHandler} color="primary">Save</Button>
                 </DialogActions>
             </Dialog>
         </div>
