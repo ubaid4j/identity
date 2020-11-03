@@ -1,29 +1,24 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import {makeStyles} from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Form from "../../components/form/Form";
+import Form from "components/form/Form";
 import Paper from '@material-ui/core/Paper';
-import IDENTITY_FORM from "../../shared/forms/Forms";
-import formTypes from "../../shared/forms/FormTypes";
+import IDENTITY_FORM from "shared/forms/Forms";
+import formTypes from "shared/forms/FormTypes";
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash'
-import {updateForm} from "../../store/actions/Form";
-import DialogView from "../../components/modal/DialogView";
-import {UserContext} from "../../providers/UserProvider";
+import {updateForm} from "store/actions/Form";
+import DialogView from "components/modal/DialogView";
+import {UserContext} from "providers/UserProvider";
 import {Redirect} from "react-router";
-import MobileStepper from '@material-ui/core/MobileStepper';
 import {Container} from "@material-ui/core";
+import MobileStepperWidget from "../../components/form/mobileStepperWidget/MobileStepperWidget";
+import DesktopStepper from "../../components/form/deskopStepper/DesktopStepper";
+import DesktopStepperButtons from "../../components/form/deskopStepper/DesktopStepperButtons";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-    },
-    backButton: {
-        marginRight: theme.spacing(1),
     },
     instructions: {
         marginTop: theme.spacing(1),
@@ -36,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         width: "80%",
         height: "500px"
-    },
-    stepProgress: {
-        color: "red"
     }
 }));
 
@@ -140,12 +132,8 @@ const Forms = () => {
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
                         field.value = "";
-                        if (field.validation.required) {
-                            field.validation.isValid = false;
-                            field.validation.isTouched = false;
-                        } else {
-                            field.validation.isValid = true;
-                        }
+                        field.validation.isValid = !field.validation.required;
+                        field.validation.isTouched = !field.validation.required;
                     }
                 }
             }
@@ -242,76 +230,24 @@ const Forms = () => {
         return <Redirect to="/identity/congrats"/>
     }
 
-    const mobileStepper = (
-        <MobileStepper activeStep={formType.step} alternativeLabel backButton={
-            <Button
-                disabled={formType.step === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-            >
-                Back
-            </Button>
+    const mobileStepper = <MobileStepperWidget
+        formType={formType}
+        handleBack={handleBack}
+        handleNext={handleNext}
+        isNextButtonDisable={isNextButtonDisable}
+        setModalOpen={setModalOpen}
+        steps={steps}
+    />;
 
-        } nextButton={
-            formType.step !== steps.length - 1 ?
-                <Button variant="contained" color="primary" onClick={handleNext}
-                        disabled={isNextButtonDisable}>
-                    Next
-                </Button> :
-                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                        disabled={isNextButtonDisable}>
-                    Preview
-                </Button>
-
-        } steps={
-            steps.map((label) => (
-                <Step
-                    key={label}
-                    className={classes.stepProgress}
-                >
-                    <StepLabel>{label}</StepLabel>
-                </Step>
-            ))
-        }>
-        </MobileStepper>
-
-    );
-
-    const desktopStepper = (
-        <Stepper activeStep={formType.step} alternativeLabel>
-            {steps.map((label) => (
-                <Step
-                    key={label}
-                    className={classes.stepProgress}
-                >
-                    <StepLabel>{label}</StepLabel>
-                </Step>
-            ))}
-        </Stepper>
-    );
-
-    const desktopButton = (
-        <div>
-            <Button
-                disabled={formType.step === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-            >
-                Back
-            </Button>
-            {
-                formType.step !== steps.length - 1 ?
-                    <Button variant="contained" color="primary" onClick={handleNext}
-                            disabled={isNextButtonDisable}>
-                        Next
-                    </Button> :
-                    <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                            disabled={isNextButtonDisable}>
-                        Preview
-                    </Button>
-            }
-        </div>
-    );
+    const desktopStepper = <DesktopStepper steps={steps} formType={formType}/>;
+    const desktopButton = <DesktopStepperButtons
+        formType={formType}
+        steps={steps}
+        setModalOpen={setModalOpen}
+        isNextButtonDisable={isNextButtonDisable}
+        handleNext={handleNext}
+        handleBack={handleBack}
+    />
 
     return (
         <Container>
