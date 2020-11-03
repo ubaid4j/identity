@@ -1,34 +1,21 @@
-import React, {useCallback, useState} from 'react';
+import React, {createRef, useCallback, useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import MaterialLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from 'react-router-dom';
 import _ from 'lodash';
-import {useDispatch, useSelector} from "react-redux";
-import {signup} from "../../store/actions/SignUp";
-
-
-const Copyright = () => {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <MaterialLink color="inherit" href="https://github.com/UbaidurRehman1/identity">
-                Identity
-            </MaterialLink>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {useDispatch, useSelector} from 'react-redux';
+import {signup} from 'store/actions/SignUp';
+import {validateEmail, validateFieldLength, validatePassword, validateWholeForm} from 'components/signup/util/Utils';
+import SubmitButton from 'components/inputs/SubmitButton';
+import FormSpinner from 'components/login/components/FormSpinner';
+import CopyRight from 'components/copyright/CopyRight';
+import FormLink from 'components/links/FormLink';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -53,29 +40,30 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
     const classes = useStyles();
 
+    const spinnerRef = createRef();
+    const submitRef = createRef();
+
     const dispatch = useDispatch();
     const handleSignup = useCallback((userData) => dispatch(signup(userData)), [dispatch]);
 
     const isLogin = useSelector(state => state.auth.isLogin);
     const isSignUpLoading = useSelector(state => state.auth.isSignUpLoading);
 
-    const [isSignUpButtonEnable, setSignUpButtonEnable] = useState(false);
-
     const SIGNUP_FORM = {
         firstName: {
             disabled: false,
-            value: "",
-            type: "text",
-            autoComplete: "fname",
-            name: "firstName",
-            variant: "outlined",
+            value: '',
+            type: 'text',
+            autoComplete: 'fname',
+            name: 'firstName',
+            variant: 'outlined',
             fullWidth: true,
-            id: "firstName",
-            key: "firstName",
+            id: 'firstName',
+            key: 'firstName',
             autoFocus: true,
             required: true,
             error: false,
-            helperText: "",
+            helperText: '',
             onChange: (event) => onChangeHandler('firstName', event),
             validation: {
                 minLength: 3,
@@ -83,21 +71,21 @@ const SignUp = () => {
                 isTouched: false,
                 isValid: false
             },
-            label: "First Name"
+            label: 'First Name'
         },
         lastName: {
             disabled: false,
-            value: "",
-            type: "text",
-            variant: "outlined",
+            value: '',
+            type: 'text',
+            variant: 'outlined',
             required: true,
             fullWidth: true,
-            id: "lastName",
-            ket: "lastName",
-            name: "lastName",
-            autoComplete: "lname",
+            id: 'lastName',
+            ket: 'lastName',
+            name: 'lastName',
+            autoComplete: 'lname',
             error: false,
-            helperText: "",
+            helperText: '',
             onChange: (event) => onChangeHandler('lastName', event),
             validation: {
                 required: true,
@@ -106,21 +94,21 @@ const SignUp = () => {
                 isTouched: false,
                 isValid: false
             },
-            label: "Last Name"
+            label: 'Last Name'
         },
         email: {
             disabled: false,
-            value: "",
-            type: "email",
-            variant: "outlined",
+            value: '',
+            type: 'email',
+            variant: 'outlined',
             required: true,
             fullWidth: true,
-            id: "email",
-            key: "email",
-            name: "email",
-            autoComplete: "email",
+            id: 'email',
+            key: 'email',
+            name: 'email',
+            autoComplete: 'email',
             error: false,
-            helperText: "",
+            helperText: '',
             onChange: (event) => onChangeHandler('email', event),
             validation: {
                 minLength: 6,
@@ -128,21 +116,21 @@ const SignUp = () => {
                 isTouched: false,
                 isValid: false
             },
-            label: "Email Address"
+            label: 'Email Address'
         },
         password: {
             disabled: false,
-            value: "",
-            type: "password",
-            variant: "outlined",
+            value: '',
+            type: 'password',
+            variant: 'outlined',
             required: true,
             fullWidth: true,
-            name: "password",
-            id: "password",
-            key: "password",
-            autoComplete: "current-password",
+            name: 'password',
+            id: 'password',
+            key: 'password',
+            autoComplete: 'current-password',
             error: false,
-            helperText: "",
+            helperText: '',
             onChange: (event) => onChangeHandler('password', event),
             validation: {
                 minLength: 8,
@@ -150,11 +138,22 @@ const SignUp = () => {
                 isTouched: false,
                 isValid: false
             },
-            label: "Password"
+            label: 'Password'
         }
     }
 
     const [form, setForm] = useState(SIGNUP_FORM);
+    const [isSignUpButtonEnable, setSignUpButtonEnable] = useState(false);
+
+    useEffect(() => {
+       if (isSignUpLoading) {
+           if (spinnerRef.current) spinnerRef.current.style.display = 'inline-block';
+           if (submitRef.current) submitRef.current.style.display = 'none';
+       } else {
+           if (spinnerRef.current) spinnerRef.current.style.display = 'none';
+           if (submitRef.current) submitRef.current.style.display = 'inline-flex';
+       }
+    }, [isSignUpLoading, spinnerRef, submitRef]);
 
     const onChangeHandler = (fieldId, event) => {
         const newForm = _.clone(form);
@@ -171,56 +170,6 @@ const SignUp = () => {
         setSignUpButtonEnable(validateWholeForm(newForm));
     }
 
-    const validateFieldLength = field => {
-        if (field.validation.isTouched) {
-            if (field.value.length < field.validation.minLength || field.value.length > field.validation.maxLength) {
-                field.validation.isValid = false;
-                field.error = true;
-                field.helperText = 'Min Val: ' + field.validation.minLength + ', Max Val: ' + field.validation.maxLength;
-            } else {
-                field.validation.isValid = true;
-                field.error = false;
-                field.helperText = '';
-            }
-        }
-    }
-
-    const validateEmail = emailField => {
-        const email = emailField.value;
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const isValid = re.test(String(email).toLowerCase());
-        if (!isValid) {
-            emailField.validation.isValid = false;
-            emailField.error = true;
-            emailField.helperText = 'Invalid Email Address';
-        } else {
-            emailField.validation.isValid = true;
-            emailField.error = false;
-            emailField.helperText = '';
-        }
-
-    }
-
-    const validatePassword = passwordField => {
-        const pw = passwordField.value;
-        const isValid = /[A-Z]/.test(pw) &&
-            /[a-z]/.test(pw) &&
-            /[0-9]/.test(pw) &&
-            /[^A-Za-z0-9]/.test(pw) &&
-            pw.length > 4;
-        if (!isValid) {
-            passwordField.validation.isValid = false;
-            passwordField.error = true;
-            passwordField.helperText = 'Password should at least contain an upper case letter, a lower case letter, a digit and a special symbol and greater than 4 digits';
-
-        } else {
-            passwordField.validation.isValid = true;
-            passwordField.error = false;
-            passwordField.helperText = '';
-        }
-
-    }
-
     const signUpHandler = (event) => {
         event.preventDefault();
         const newFormData = _.clone(form);
@@ -232,29 +181,18 @@ const SignUp = () => {
         handleSignup(formData);
     }
 
-    const validateWholeForm = (form) => {
-        let keys = Object.keys(form);
-        for (let key in keys) {
-            const field = form[keys[key]];
-            if (!field.validation.isValid) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     if (isLogin) {
-        return <Redirect to="/identity/welcome"/>
+        return <Redirect to='/identity/welcome'/>
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component='main' maxWidth='xs'>
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component='h1' variant='h5'>
                     Sign up
                 </Typography>
                 <form className={classes.form} onSubmit={(event) => signUpHandler(event)}>
@@ -282,33 +220,12 @@ const SignUp = () => {
                             })
                         }
                     </Grid>
-                    {
-                        isSignUpLoading ? <CircularProgress style={{marginTop: '8px'}}/> :
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                disabled={!isSignUpButtonEnable}
-                            >
-                                Sign Up
-                            </Button>
-                    }
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link to="/identity/login" style={{textDecoration: 'none', outline: "none"}}>
-                                <Button size="small" color="primary">
-                                    Already have an account? Sign in
-                                </Button>
-                            </Link>
-                        </Grid>
-                    </Grid>
+                    <FormSpinner ref={spinnerRef}/>
+                    <SubmitButton ref={submitRef} className={classes.submit} isDisable={!isSignUpButtonEnable} label='Sign Up'/>
+                    <FormLink to={'/identity/login'} label={'Already have an account? Sign in'}/>
                 </form>
             </div>
-            <Box mt={5}>
-                <Copyright/>
-            </Box>
+            <CopyRight />
         </Container>
     );
 }
