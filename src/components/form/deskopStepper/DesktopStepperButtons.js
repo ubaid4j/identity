@@ -10,28 +10,35 @@ const useStyles = makeStyles((theme) => ({
 
 const DesktopStepperButtons = ({formType, steps, handleBack, handleNext, isNextButtonDisable, setModalOpen}) => {
     const classes = useStyles();
+
+    const backButton = (
+        <Button disabled={formType.step === 0} onClick={handleBack}
+            className={classes.backButton}>
+            Back
+        </Button>
+    );
+
+    const nextButton = (
+        <Button variant="contained" color="primary" onClick={handleNext}
+                disabled={isNextButtonDisable}>
+            Next
+        </Button>
+    );
+
+    const previewButton = (
+        <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
+                disabled={isNextButtonDisable}>
+            Preview
+        </Button>
+    );
+
+    const nextView = formType.step !== steps.length - 1 ? nextButton : previewButton;
+
     return (
         <div>
-            <Button
-                disabled={formType.step === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-            >
-                Back
-            </Button>
-            {
-                formType.step !== steps.length - 1 ?
-                    <Button variant="contained" color="primary" onClick={handleNext}
-                            disabled={isNextButtonDisable}>
-                        Next
-                    </Button> :
-                    <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                            disabled={isNextButtonDisable}>
-                        Preview
-                    </Button>
-            }
+            {backButton}
+            {nextView}
         </div>
     );
 }
-
 export default DesktopStepperButtons;

@@ -249,25 +249,24 @@ const Forms = () => {
         handleBack={handleBack}
     />
 
+    const stepper = window.screen.width < 600 ? mobileStepper : desktopStepper;
+    const stepperButton = window.screen.width >= 600 ? desktopButton : null;
+
     return (
         <Container>
-            {
-                window.screen.width < 600 ? mobileStepper : desktopStepper
-            }
-            <div className={classes.root}>
-                <div>
-                    <div>
-                        <Paper elevation={3} className={classes.paper}>
-                            <Form form={identityForm[formType.value]} formType={formType} handler={changeHandler}/>
-                        </Paper>
-                    </div>
-                    {
-                        window.screen.width >= 600 ? desktopButton : null
-                    }
-                </div>
-                <DialogView form={form} open={isModalOpen} modalHandler={() => setModalOpen(false)}
-                            saveFormHandler={handleSaveForm}/>
-            </div>
+            {stepper}
+            <Container className={classes.root}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Form form={identityForm[formType.value]} formType={formType} handler={changeHandler}/>
+                </Paper>
+                {stepperButton}
+                <DialogView
+                    form={form}
+                    open={isModalOpen}
+                    modalHandler={() => setModalOpen(false)}
+                    saveFormHandler={handleSaveForm}
+                />
+            </Container>
         </Container>
     );
 }

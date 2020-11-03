@@ -10,16 +10,12 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-
 const DesktopStepper = ({formType, steps}) => {
     const classes = useStyles();
     return (
         <Stepper activeStep={formType.step} alternativeLabel>
             {steps.map((label) => (
-                <Step
-                    key={label}
-                    className={classes.stepProgress}
-                >
+                <Step key={label} className={classes.stepProgress}>
                     <StepLabel>{label}</StepLabel>
                 </Step>
             ))}
