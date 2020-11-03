@@ -1,8 +1,6 @@
 import React, {createRef, useCallback, useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import MaterialLink from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
@@ -10,24 +8,12 @@ import Container from '@material-ui/core/Container';
 import {Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {LoginHandler} from 'store/actions/Login';
-import LoginEmail from "./components/LoginEmail";
-import LoginPassword from "./components/LoginPassword";
-import LoginProgress from "./components/LoginProgress";
-import LoginButton from "./components/LoginButton";
-import SignUpLink from "./components/SignUpLink";
-
-const Copyright = () => {
-    return (
-        <Typography variant='body2' color='textSecondary' align='center'>
-            {'Copyright © '}
-            <MaterialLink color='inherit' href='https://github.com/UbaidurRehman1/identity'>
-                Identity
-            </MaterialLink>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import LoginEmail from 'components/login/components/LoginEmail';
+import LoginPassword from 'components/login/components/LoginPassword';
+import FormSpinner from 'components/login/components/FormSpinner';
+import SubmitButton from 'components/inputs/SubmitButton';
+import FormLink from 'components/links/FormLink';
+import CopyRight from 'components/copyright/CopyRight';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -100,14 +86,12 @@ const Login = () => {
                 <form className={classes.form} onSubmit={(event) => login(event)}>
                     <LoginEmail value={username} setUserName={setUsername}/>
                     <LoginPassword value={password} setPassword={setPassword}/>
-                    <LoginProgress ref={spinnerRef}/>
-                    <LoginButton ref={loginButtonRef} className={classes.submit}/>
-                    <SignUpLink />
+                    <FormSpinner ref={spinnerRef}/>
+                    <SubmitButton ref={loginButtonRef} isDisable={false} className={classes.submit} label={'Log In'}/>
+                    <FormLink label={'Don\'t have an account? Sign Up'} to={'/identity/signup'}/>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright/>
-            </Box>
+            <CopyRight />
         </Container>
     );
 }

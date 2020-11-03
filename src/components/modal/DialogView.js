@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormPreview from "../preview/FormPreview";
+import FormPreview from 'components/preview/FormPreview';
 
 const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
 
@@ -23,25 +23,25 @@ const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
         <div>
             <Dialog
                 fullWidth={true}
-                maxWidth="md"
+                maxWidth='md'
                 open={open}
                 onClose={modalHandler}
                 scroll={'paper'}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
+                aria-labelledby='scroll-dialog-title'
+                aria-describedby='scroll-dialog-description'
             >
-                <DialogTitle id="scroll-dialog-title">Form Preview</DialogTitle>
+                <DialogTitle id='scroll-dialog-title'>Form Preview</DialogTitle>
                 <DialogContent dividers={true}>
                     <DialogContentText
-                        id="scroll-dialog-description"
+                        id='scroll-dialog-description'
                         ref={descriptionElementRef}
                         tabIndex={-1}>
                         <FormPreview form={form} />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={modalHandler} color="primary">Cancel</Button>
-                    <Button onClick={saveFormHandler} color="primary">Save</Button>
+                    <Button onClick={modalHandler} color='primary'>Cancel</Button>
+                    <Button onClick={saveFormHandler} color='primary'>Save</Button>
                 </DialogActions>
             </Dialog>
         </div>

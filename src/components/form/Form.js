@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import SelectInput from 'components/inputs/Select';
 import Check from 'components/inputs/Check';
-import FormTextField from "components/inputs/FormTextField";
+import FormTextField from 'components/inputs/FormTextField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
