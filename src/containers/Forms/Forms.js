@@ -206,120 +206,21 @@ const Forms = () => {
     const changeHandler = (event, formType, inputType) => {
         const newIdentityForm = _.clone(identityForm);
         const subForm = newIdentityForm[formType.value];
-        let fieldName = event.target.id;
-        if (fieldName === undefined) {
-            fieldName = event.target.name;
-        }
+        let fieldName = event.target.id || event.target.name;
         if (inputType === "check") {
             subForm[fieldName].value = event.target.checked;
-            if (event.target.checked) {
-                toggleInputsDisabled(formType, false);
-            } else {
-                toggleInputsDisabled(formType, true);
-            }
-        } else if (inputType === "select") {
-            console.log(inputType);
+            toggleInputsDisabled(formType, !event.target.checked);
         } else {
             const field = subForm[fieldName];
             field.helperText = '';
             field.value = event.target.value;
             field.validation.isTouched = true;
 
-            let pattern;
-            let validation = field.validation;
-            field.helperText = '';
-            let _isValid;
-            switch (field.id) {
-                case 'firstName':
-                    pattern = /^[A-z]{3,8}$/g
-                    _isValid = pattern.test(field.value)
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Digits/Space Allowed. Not more than 8 and less than 3 Alphabets" : "";
-                    break;
-                case 'middleName':
-                    pattern = /^[A-z]?[A-z]?[A-z]?[A-z]?$/g
-                    _isValid = pattern.test(field.value)
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Digits/Space Allowed. Not more than 4" : "";
-                    break;
-                case 'lastName':
-                    pattern = /^[A-z]{2,8}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Digits/Space Allowed. Not more than 8 and less than 2 Alphabets" : "";
-                    break;
-                case 'age':
-                    pattern = /^[1-9][0-9]?$/g
-                    _isValid = pattern.test(field.value)
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Please Enter Age between 1 and 99" : "";
-                    break;
-                case 'mobileNumber':
-                    pattern = /^[+][9][2][-][3][0-4][0-9][-][0-9]{7}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Mobile Number should be in this pattern +92-3xx-xxxxxx" : "";
-                    break;
-                case 'metricMarks':
-                    pattern = /^[1-9][0-9]?%$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Invalid Input. Should like this xx%" : "";
-                    break;
-                case 'intermediateMarks':
-                    pattern = /^[1-9][0-9]?%$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Invalid Input. Should like this xx%" : "";
-                    break;
-                case 'bachelorCGPA':
-                    pattern = /^[1-9]+$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Select CGPA" : "";
-                    break;
-                case 'companyName':
-                    pattern = /^[A-z]{3,15}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Space is allowed. Range [3, 15]" : "";
-                    break;
-                case 'designationName':
-                    pattern = /^[A-z]{3,15}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Space is allowed. Range [3, 15]" : "";
-                    break;
-                case 'type':
-                    pattern = /^[A-z]+$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Select Type" : "";
-                    break;
-                case 'plateNumber':
-                    pattern = /^[A-Z]{3}-[0-9]{4}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Not a valid plate number. Format should be like AKK-2915" : "";
-                    break;
-                case 'houseNumber':
-                    pattern = /^[A-Z]{3}-[0-9]{6}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Not a valid plate number. Format should be like JND-233232" : "";
-                    break;
-                default:
-            }
+            field.validation.isValid = field.pattern ? _.clone(field.pattern).test(field.value) : true;
+            field.helperText = !field.validation.isValid ? field.text : '';
         }
-        //validation checking of whole subform
-        if (isValid(subForm)) {
-            setSubFormComplete(true);
-            setNextButtonDisable(false);
-        } else {
-            setSubFormComplete(false);
-            setNextButtonDisable(true)
-        }
-        //validation checking end
+        setSubFormComplete(isValid(subForm));
+        setNextButtonDisable(!isValid(subForm));
         setIdentityForm(newIdentityForm);
     }
 
