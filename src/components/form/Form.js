@@ -1,15 +1,15 @@
-import React from "react";
-import TextField from '@material-ui/core/TextField';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import SelectInput from "../inputs/Select";
-import Check from "../inputs/Check";
+import SelectInput from 'components/inputs/Select';
+import Check from 'components/inputs/Check';
+import FormTextField from 'components/inputs/FormTextField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        alignItems: "center",
-        justifyContent: "center",
-        display: "flex",
-        flexDirection: "column",
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
         marginTop: theme.spacing(5),
         '& > *': {
             margin: theme.spacing(1),
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-        textAlign: "left"
+        textAlign: 'left'
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -41,65 +41,14 @@ const Form = ({form, handler, formType}) => {
             {
                 fields.map(field => {
                     switch (field.type) {
-                        case "text":
-                            return (
-                                <TextField
-                                    error={field.validation.isTouched && !field.validation.isValid}
-                                    helperText={field.helperText}
-                                    disabled={field.disabled}
-                                    hidden={field.hidden}
-                                    key={field.id}
-                                    required={field.validation.required}
-                                    id={field.id}
-                                    label={field.label}
-                                    variant="outlined"
-                                    value={field.value}
-                                    placeholder={field.placeholder}
-                                    onChange={(event) => handler(event, formType, "input")}/>
-                            );
-                        case "number":
-                            return (
-                                <TextField
-                                    type={"number"}
-                                    error={field.validation.isTouched && !field.validation.isValid}
-                                    helperText={field.helperText}
-                                    disabled={field.disabled}
-                                    hidden={field.hidden}
-                                    key={field.id}
-                                    required={field.validation.required}
-                                    id={field.id}
-                                    label={field.label}
-                                    variant="outlined"
-                                    value={field.value}
-                                    onChange={(event) => handler(event, formType, "input")}/>
-                            );
-                        case "select":
-                            return (
-                                <SelectInput
-                                    required={field.validation.required}
-                                    error={field.validation.isTouched && !field.validation.isValid}
-                                    helperText={field.helperText}
-                                    disabled={field.disabled}
-                                    value={field.value}
-                                    label={field.label}
-                                    id={field.id}
-                                    key={field.id}
-                                    options={field.options}
-                                    formType={formType}
-                                    handler={handler}
-                                />
-                            );
-                        case "check":
-                            return (
-                                <Check
-                                    key={field.id}
-                                    handler={handler}
-                                    formType={formType}
-                                    id={field.id}
-                                    label={field.label}
-                                    value={field.value}
-                                />
-                            )
+                        case 'text':
+                            return <FormTextField type={'text'} field={field} formType={formType} handler={handler}/>
+                        case 'number':
+                            return <FormTextField type={'number'} field={field} formType={formType} handler={handler}/>
+                        case 'select':
+                            return <SelectInput handler={handler} formType={formType} field={field}/>
+                        case 'check':
+                            return <Check handler={handler} formType={formType} field={field}/>
                         default:
                             return null;
                     }

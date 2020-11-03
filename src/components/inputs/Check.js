@@ -1,20 +1,20 @@
-import React from "react";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import React from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
-const Check = ({id, label, value, formType, handler}) => {
+const Check = ({field, formType, handler}) => {
     return (
         <FormControlLabel
-            key={id}
-            label={label}
-            labelPlacement={"end"}
+            key={field.id}
+            label={field.label}
+            labelPlacement={'end'}
             control={
                 <Checkbox
-                    key={id}
-                    value={value}
-                    checked={value}
-                    onChange={event => handler(event, formType, "check")}
-                    id={id}
+                    key={field.id}
+                    value={field.value}
+                    checked={field.value}
+                    onChange={event => handler(event, formType, 'check')}
+                    id={field.id}
                 />
             }
         />
