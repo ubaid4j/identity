@@ -13,31 +13,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SelectInput = ({formType, required, id, disabled, label, value, options, handler}) => {
+const SelectInput = ({formType, field, handler}) => {
     const classes = useStyles();
     return (
         <FormControl
-            required={required}
+            required={field.validation.required}
             variant='outlined'
             className={classes.formControl}
-            key={id}
-            disabled={disabled}
+            key={field.id}
+            disabled={field.disabled}
         >
-            <InputLabel id={id}>{label}</InputLabel>
+            <InputLabel id={field.id}>{field.label}</InputLabel>
             <Select
-                required={required}
+                error={field.validation.isTouched && !field.validation.isValid}
+                required={field.required}
                 native
-                labelId={id}
-                key={id}
-                id={id}
-                name={id}
-                value={value}
-                label={label}
+                labelId={field.id}
+                key={field.id}
+                id={field.id}
+                name={field.id}
+                value={field.value}
+                label={field.label}
                 onChange={(event) => handler(event, formType, 'input')}
             >
                 <option key={'none'} aria-label='None' value=''/>
                 {
-                    options.map(value => {
+                    field.options.map(value => {
                         return <option key={value} value={value}>{value}</option>
                     })
                 }
