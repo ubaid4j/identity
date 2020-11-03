@@ -14,5 +14,4 @@ const PreviewTableRow = ({subForm, identityForm, id, subKey}) => {
         </TableRow>
     );
 }
-
 export default PreviewTableRow;

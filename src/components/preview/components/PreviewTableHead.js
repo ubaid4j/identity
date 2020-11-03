@@ -17,5 +17,4 @@ const PreviewTableHead = ({id}) => {
         </TableHead>
     );
 }
-
 export default PreviewTableHead;
