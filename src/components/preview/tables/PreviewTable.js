@@ -1,8 +1,8 @@
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import React from 'react';
-import PreviewTableRow from 'components/preview/components/PreviewTableRow';
-import PreviewTableHead from 'components/preview/components/PreviewTableHead';
+import PreviewTableRow from 'components/preview/tables/PreviewTableRow';
+import PreviewTableHead from 'components/preview/tables/PreviewTableHead';
 
 const PreviewTable = ({id, subForm, identityForm}) => {
     return (
