@@ -4,17 +4,13 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CongratsLink from "./components/CongratsLink";
+import FormLink from "./components/FormLink";
 
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
         margin: 'auto',
         marginTop: '5rem'
-    },
-    link: {
-        textDecoration: 'none',
-        outline: 'none'
     }
 });
 
@@ -32,8 +28,8 @@ const Congrats = () => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <CongratsLink className={classes.link} label="View Your Form" to="/identity/preview"/>
-                <CongratsLink className={classes.link} label="Edit Your Form" to="/identity/create"/>
+                <FormLink label="View Your Form" to="/identity/preview"/>
+                <FormLink label="Edit Your Form" to="/identity/create"/>
             </CardActions>
         </Card>
     );
