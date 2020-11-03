@@ -1,5 +1,5 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import React, {forwardRef} from "react";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import React, {forwardRef} from 'react';
 
 const FormSpinner = forwardRef((props, ref) => {
     return (
