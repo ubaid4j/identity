@@ -14,7 +14,7 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Grid from '@material-ui/core/Grid';
 import {useDispatch, useSelector} from 'react-redux';
 import {TryLoginHandler} from 'store/actions/Login';
-import FormLink from 'components/congrats/components/FormLink';
+import FormLink from 'components/links/FormLink';
 
 const useStyles = makeStyles((theme) => ({
     paper: {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Container} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import IDENTITY_FORM from 'shared/forms/Forms';
-import PreviewTable from 'components/preview/components/PreviewTable';
+import PreviewTable from 'components/preview/tables/PreviewTable';
 
 const FormPreview = ({form}) => {
     const [identityForm,] = useState(IDENTITY_FORM);
