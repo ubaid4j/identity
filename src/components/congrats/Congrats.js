@@ -3,9 +3,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {Link} from 'react-router-dom';
+import CongratsLink from "./components/CongratsLink";
 
 const useStyles = makeStyles({
     root: {
@@ -33,19 +32,10 @@ const Congrats = () => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link to='/identity/preview' className={classes.link}>
-                    <Button size='small' color='primary'>
-                        View Your Form
-                    </Button>
-                </Link>
-                <Link to='/identity/create' className={classes.link}>
-                    <Button size='small' color='primary'>
-                        Edit Your Form
-                    </Button>
-                </Link>
+                <CongratsLink className={classes.link} label="View Your Form" to="/identity/preview"/>
+                <CongratsLink className={classes.link} label="Edit Your Form" to="/identity/create"/>
             </CardActions>
         </Card>
     );
 }
-
 export default Congrats;
