@@ -1,19 +1,19 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Form from "components/form/Form";
+import Form from 'components/form/Form';
 import Paper from '@material-ui/core/Paper';
-import IDENTITY_FORM from "shared/forms/Forms";
-import formTypes from "shared/forms/FormTypes";
-import {useDispatch, useSelector} from "react-redux";
+import IDENTITY_FORM from 'shared/forms/Forms';
+import formTypes from 'shared/forms/FormTypes';
+import {useDispatch, useSelector} from 'react-redux';
 import _ from 'lodash'
-import {updateForm} from "store/actions/Form";
-import DialogView from "components/modal/DialogView";
-import {UserContext} from "providers/UserProvider";
-import {Redirect} from "react-router";
-import {Container} from "@material-ui/core";
-import MobileStepperWidget from "components/form/mobileStepperWidget/MobileStepperWidget";
-import DesktopStepper from "components/form/deskopStepper/DesktopStepper";
-import DesktopStepperButtons from "components/form/deskopStepper/DesktopStepperButtons";
+import {UpdateForm} from 'store/actions/FormHandler';
+import DialogView from 'components/modal/DialogView';
+import {UserContext} from 'providers/UserProvider';
+import {Redirect} from 'react-router';
+import {Container} from '@material-ui/core';
+import MobileStepperWidget from 'components/form/mobileStepperWidget/MobileStepperWidget';
+import DesktopStepper from 'components/form/deskopStepper/DesktopStepper';
+import DesktopStepperButtons from 'components/form/deskopStepper/DesktopStepperButtons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         margin: theme.spacing(2),
-        marginRight: "auto",
-        marginLeft: "auto",
-        width: "80%",
-        height: "500px"
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        width: '80%',
+        height: '500px'
     }
 }));
 
@@ -49,7 +49,7 @@ const Forms = () => {
     const user = useContext(UserContext);
 
     const dispatch = useDispatch();
-    const submitFormInfo = useCallback((info, id, user) => dispatch(updateForm(info, id, user)), [dispatch]);
+    const submitFormInfo = useCallback((info, id, user) => dispatch(UpdateForm(info, id, user)), [dispatch]);
     const formId = useSelector(state => state.form.formId);
     const form = useSelector(state => state.form.form);
     const isFormComplete = useSelector(state => state.login.formInfo ? state.login.formInfo.isFormCompleted : null)
@@ -59,7 +59,7 @@ const Forms = () => {
 
     const [isModalOpen, setModalOpen] = useState(false);
 
-
+    //one time execution when component re-renders
     useEffect(() => {
         clearFormData();
         if (formId !== null) {
@@ -121,7 +121,7 @@ const Forms = () => {
                             field.value = false
                         } else {
                             field.disabled = true;
-                            field.value = "";
+                            field.value = '';
                             field.validation.isValid = false;
                             field.validation.isTouched = false;
                         }
@@ -131,7 +131,7 @@ const Forms = () => {
                 for (let key in subForm) {
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
-                        field.value = "";
+                        field.value = '';
                         field.validation.isValid = !field.validation.required;
                         field.validation.isTouched = !field.validation.required;
                     }
@@ -195,7 +195,7 @@ const Forms = () => {
         const newIdentityForm = _.clone(identityForm);
         const subForm = newIdentityForm[formType.value];
         let fieldName = event.target.id || event.target.name;
-        if (inputType === "check") {
+        if (inputType === 'check') {
             subForm[fieldName].value = event.target.checked;
             toggleInputsDisabled(formType, !event.target.checked);
         } else {
@@ -222,12 +222,12 @@ const Forms = () => {
                 }
             }
         }
-        console.log("Form is Valid");
+        console.log('Form is Valid');
         return true;
     }
 
     if (isFormComplete) {
-        return <Redirect to="/identity/congrats"/>
+        return <Redirect to='/identity/congrats'/>
     }
 
     const mobileStepper = <MobileStepperWidget

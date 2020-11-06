@@ -1,4 +1,10 @@
-import * as actionTypes from '../actions/ActionTypes'
+import {
+    NEXT_FORM,
+    REMOVE_FORM,
+    FORM_UPDATING,
+    POPULATE_FORM,
+    REMOVE_FORM_ERROR
+} from 'store/actions/ActionTypes'
 
 const initialState = {
     formId: null,
@@ -8,21 +14,20 @@ const initialState = {
     isUpdating: false
 }
 
-const NextFormReducer = (state=initialState, action) => {
+const FormReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.NEXT_FORM:
+        case NEXT_FORM:
             return {...state, form: action.info, formId: action.formId, isUpdating: false}
-        case actionTypes.REMOVE_FORM:
+        case REMOVE_FORM:
             return {...state, formId: null, form: null, isCompleted: false, error: null, isUpdating: false}
-        case actionTypes.FORM_UPDATING:
+        case FORM_UPDATING:
             return {...state, isUpdating: true}
-        case actionTypes.POPULATE_FORM:
+        case POPULATE_FORM:
             return {...state, form: action.form, formId: action.formId, isCompleted: action.isCompleted}
-        case actionTypes.REMOVE_FORM_ERROR:
+        case REMOVE_FORM_ERROR:
             return {...state, error: null}
         default:
             return state;
     }
 }
-
-export default NextFormReducer;
+export default FormReducer;

@@ -13,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Grid from '@material-ui/core/Grid';
 import {useDispatch, useSelector} from 'react-redux';
-import {TryLoginHandler} from 'store/actions/Login';
+import {TryLoginHandler} from 'store/actions/LoginHandler';
 import FormLink from 'components/links/FormLink';
 
 const useStyles = makeStyles((theme) => ({

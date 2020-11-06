@@ -7,7 +7,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {LoginHandler} from 'store/actions/Login';
+import {LoginHandler} from 'store/actions/LoginHandler';
 import LoginEmail from 'components/login/LoginEmail';
 import LoginPassword from 'components/login/LoginPassword';
 import FormSpinner from 'components/inputs/FormSpinner';
@@ -51,13 +51,21 @@ const Login = () => {
     const loginButtonRef = createRef();
 
     const showSpinnerAndHideLoginButton = useCallback(() => {
-        if (spinnerRef.current) {spinnerRef.current.style.display = 'inline-block';}
-        if (loginButtonRef.current) {loginButtonRef.current.style.display = 'none';}
+        if (spinnerRef.current) {
+            spinnerRef.current.style.display = 'inline-block';
+        }
+        if (loginButtonRef.current) {
+            loginButtonRef.current.style.display = 'none';
+        }
     }, [spinnerRef, loginButtonRef]);
 
     const hideSpinnerAndShowLoginButton = useCallback(() => {
-        if (spinnerRef.current) {spinnerRef.current.style.display = 'none';}
-        if (loginButtonRef.current) {loginButtonRef.current.style.display = 'inline-flex';}
+        if (spinnerRef.current) {
+            spinnerRef.current.style.display = 'none';
+        }
+        if (loginButtonRef.current) {
+            loginButtonRef.current.style.display = 'inline-flex';
+        }
     }, [spinnerRef, loginButtonRef])
 
     useEffect(() => {
@@ -91,7 +99,7 @@ const Login = () => {
                     <FormLink label={'Don\'t have an account? Sign Up'} to={'/identity/signup'}/>
                 </form>
             </div>
-            <CopyRight />
+            <CopyRight/>
         </Container>
     );
 }
