@@ -201,21 +201,9 @@ const SignUp = () => {
                             Object.keys(form).map(key => {
                                 const field = form[key];
                                 if (field === form.firstName || field === form.lastName) {
-                                    return (
-                                        <Grid item xs={12} sm={6} key={key}>
-                                            <TextField
-                                                {...field}
-                                            />
-                                        </Grid>
-                                    );
+                                    return (<Grid item xs={12} sm={6} key={key}><TextField {...field}/></Grid>);
                                 } else {
-                                    return (
-                                        <Grid item xs={12} key={key}>
-                                            <TextField
-                                                {...field}
-                                            />
-                                        </Grid>
-                                    );
+                                    return (<Grid item xs={12} key={key}><TextField{...field}/></Grid>);
                                 }
                             })
                         }

@@ -1,29 +1,24 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import {makeStyles} from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Form from "../../components/form/Form";
+import Form from "components/form/Form";
 import Paper from '@material-ui/core/Paper';
-import IDENTITY_FORM from "../../shared/forms/Forms";
-import formTypes from "../../shared/forms/FormTypes";
+import IDENTITY_FORM from "shared/forms/Forms";
+import formTypes from "shared/forms/FormTypes";
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash'
-import {updateForm} from "../../store/actions/Form";
-import DialogView from "../../components/modal/DialogView";
-import {UserContext} from "../../providers/UserProvider";
+import {updateForm} from "store/actions/Form";
+import DialogView from "components/modal/DialogView";
+import {UserContext} from "providers/UserProvider";
 import {Redirect} from "react-router";
-import MobileStepper from '@material-ui/core/MobileStepper';
 import {Container} from "@material-ui/core";
+import MobileStepperWidget from "components/form/mobileStepperWidget/MobileStepperWidget";
+import DesktopStepper from "components/form/deskopStepper/DesktopStepper";
+import DesktopStepperButtons from "components/form/deskopStepper/DesktopStepperButtons";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-    },
-    backButton: {
-        marginRight: theme.spacing(1),
     },
     instructions: {
         marginTop: theme.spacing(1),
@@ -36,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         width: "80%",
         height: "500px"
-    },
-    stepProgress: {
-        color: "red"
     }
 }));
 
@@ -140,12 +132,8 @@ const Forms = () => {
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
                         field.value = "";
-                        if (field.validation.required) {
-                            field.validation.isValid = false;
-                            field.validation.isTouched = false;
-                        } else {
-                            field.validation.isValid = true;
-                        }
+                        field.validation.isValid = !field.validation.required;
+                        field.validation.isTouched = !field.validation.required;
                     }
                 }
             }
@@ -206,120 +194,21 @@ const Forms = () => {
     const changeHandler = (event, formType, inputType) => {
         const newIdentityForm = _.clone(identityForm);
         const subForm = newIdentityForm[formType.value];
-        let fieldName = event.target.id;
-        if (fieldName === undefined) {
-            fieldName = event.target.name;
-        }
+        let fieldName = event.target.id || event.target.name;
         if (inputType === "check") {
             subForm[fieldName].value = event.target.checked;
-            if (event.target.checked) {
-                toggleInputsDisabled(formType, false);
-            } else {
-                toggleInputsDisabled(formType, true);
-            }
-        } else if (inputType === "select") {
-            console.log(inputType);
+            toggleInputsDisabled(formType, !event.target.checked);
         } else {
             const field = subForm[fieldName];
             field.helperText = '';
             field.value = event.target.value;
             field.validation.isTouched = true;
 
-            let pattern;
-            let validation = field.validation;
-            field.helperText = '';
-            let _isValid;
-            switch (field.id) {
-                case 'firstName':
-                    pattern = /^[A-z]{3,8}$/g
-                    _isValid = pattern.test(field.value)
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Digits/Space Allowed. Not more than 8 and less than 3 Alphabets" : "";
-                    break;
-                case 'middleName':
-                    pattern = /^[A-z]?[A-z]?[A-z]?[A-z]?$/g
-                    _isValid = pattern.test(field.value)
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Digits/Space Allowed. Not more than 4" : "";
-                    break;
-                case 'lastName':
-                    pattern = /^[A-z]{2,8}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Digits/Space Allowed. Not more than 8 and less than 2 Alphabets" : "";
-                    break;
-                case 'age':
-                    pattern = /^[1-9][0-9]?$/g
-                    _isValid = pattern.test(field.value)
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Please Enter Age between 1 and 99" : "";
-                    break;
-                case 'mobileNumber':
-                    pattern = /^[+][9][2][-][3][0-4][0-9][-][0-9]{7}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Mobile Number should be in this pattern +92-3xx-xxxxxx" : "";
-                    break;
-                case 'metricMarks':
-                    pattern = /^[1-9][0-9]?%$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Invalid Input. Should like this xx%" : "";
-                    break;
-                case 'intermediateMarks':
-                    pattern = /^[1-9][0-9]?%$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Invalid Input. Should like this xx%" : "";
-                    break;
-                case 'bachelorCGPA':
-                    pattern = /^[1-9]+$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Select CGPA" : "";
-                    break;
-                case 'companyName':
-                    pattern = /^[A-z]{3,15}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Space is allowed. Range [3, 15]" : "";
-                    break;
-                case 'designationName':
-                    pattern = /^[A-z]{3,15}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "No Space is allowed. Range [3, 15]" : "";
-                    break;
-                case 'type':
-                    pattern = /^[A-z]+$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Select Type" : "";
-                    break;
-                case 'plateNumber':
-                    pattern = /^[A-Z]{3}-[0-9]{4}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Not a valid plate number. Format should be like AKK-2915" : "";
-                    break;
-                case 'houseNumber':
-                    pattern = /^[A-Z]{3}-[0-9]{6}$/g
-                    _isValid = pattern.test(field.value);
-                    validation.isValid = _isValid;
-                    field.helperText = !_isValid ? "Not a valid plate number. Format should be like JND-233232" : "";
-                    break;
-                default:
-            }
+            field.validation.isValid = field.pattern ? _.clone(field.pattern).test(field.value) : true;
+            field.helperText = !field.validation.isValid ? field.text : '';
         }
-        //validation checking of whole subform
-        if (isValid(subForm)) {
-            setSubFormComplete(true);
-            setNextButtonDisable(false);
-        } else {
-            setSubFormComplete(false);
-            setNextButtonDisable(true)
-        }
-        //validation checking end
+        setSubFormComplete(isValid(subForm));
+        setNextButtonDisable(!isValid(subForm));
         setIdentityForm(newIdentityForm);
     }
 
@@ -341,96 +230,43 @@ const Forms = () => {
         return <Redirect to="/identity/congrats"/>
     }
 
-    const mobileStepper = (
-        <MobileStepper activeStep={formType.step} alternativeLabel backButton={
-            <Button
-                disabled={formType.step === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-            >
-                Back
-            </Button>
+    const mobileStepper = <MobileStepperWidget
+        formType={formType}
+        handleBack={handleBack}
+        handleNext={handleNext}
+        isNextButtonDisable={isNextButtonDisable}
+        setModalOpen={setModalOpen}
+        steps={steps}
+    />;
 
-        } nextButton={
-            formType.step !== steps.length - 1 ?
-                <Button variant="contained" color="primary" onClick={handleNext}
-                        disabled={isNextButtonDisable}>
-                    Next
-                </Button> :
-                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                        disabled={isNextButtonDisable}>
-                    Preview
-                </Button>
+    const desktopStepper = <DesktopStepper steps={steps} formType={formType}/>;
+    const desktopButton = <DesktopStepperButtons
+        formType={formType}
+        steps={steps}
+        setModalOpen={setModalOpen}
+        isNextButtonDisable={isNextButtonDisable}
+        handleNext={handleNext}
+        handleBack={handleBack}
+    />
 
-        } steps={
-            steps.map((label) => (
-                <Step
-                    key={label}
-                    className={classes.stepProgress}
-                >
-                    <StepLabel>{label}</StepLabel>
-                </Step>
-            ))
-        }>
-        </MobileStepper>
-
-    );
-
-    const desktopStepper = (
-        <Stepper activeStep={formType.step} alternativeLabel>
-            {steps.map((label) => (
-                <Step
-                    key={label}
-                    className={classes.stepProgress}
-                >
-                    <StepLabel>{label}</StepLabel>
-                </Step>
-            ))}
-        </Stepper>
-    );
-
-    const desktopButton = (
-        <div>
-            <Button
-                disabled={formType.step === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-            >
-                Back
-            </Button>
-            {
-                formType.step !== steps.length - 1 ?
-                    <Button variant="contained" color="primary" onClick={handleNext}
-                            disabled={isNextButtonDisable}>
-                        Next
-                    </Button> :
-                    <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                            disabled={isNextButtonDisable}>
-                        Preview
-                    </Button>
-            }
-        </div>
-    );
+    const stepper = window.screen.width < 600 ? mobileStepper : desktopStepper;
+    const stepperButton = window.screen.width >= 600 ? desktopButton : null;
 
     return (
         <Container>
-            {
-                window.screen.width < 600 ? mobileStepper : desktopStepper
-            }
-            <div className={classes.root}>
-                <div>
-                    <div>
-                        <Paper elevation={3} className={classes.paper}>
-                            <Form form={identityForm[formType.value]} formType={formType} handler={changeHandler}/>
-                        </Paper>
-                    </div>
-                    {
-                        window.screen.width >= 600 ? desktopButton : null
-                    }
-                </div>
-                <DialogView form={form} open={isModalOpen} modalHandler={() => setModalOpen(false)}
-                            saveFormHandler={handleSaveForm}/>
-            </div>
+            {stepper}
+            <Container className={classes.root}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Form form={identityForm[formType.value]} formType={formType} handler={changeHandler}/>
+                </Paper>
+                {stepperButton}
+                <DialogView
+                    form={form}
+                    open={isModalOpen}
+                    modalHandler={() => setModalOpen(false)}
+                    saveFormHandler={handleSaveForm}
+                />
+            </Container>
         </Container>
     );
 }
