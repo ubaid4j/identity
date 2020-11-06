@@ -11,9 +11,9 @@ import DialogView from "components/modal/DialogView";
 import {UserContext} from "providers/UserProvider";
 import {Redirect} from "react-router";
 import {Container} from "@material-ui/core";
-import MobileStepperWidget from "../../components/form/mobileStepperWidget/MobileStepperWidget";
-import DesktopStepper from "../../components/form/deskopStepper/DesktopStepper";
-import DesktopStepperButtons from "../../components/form/deskopStepper/DesktopStepperButtons";
+import MobileStepperWidget from "components/form/mobileStepperWidget/MobileStepperWidget";
+import DesktopStepper from "components/form/deskopStepper/DesktopStepper";
+import DesktopStepperButtons from "components/form/deskopStepper/DesktopStepperButtons";
 
 
 const useStyles = makeStyles((theme) => ({
