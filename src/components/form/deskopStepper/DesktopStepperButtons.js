@@ -1,36 +1,13 @@
-import Button from "@material-ui/core/Button";
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-    backButton: {
-        marginRight: theme.spacing(1),
-    },
-}));
+import BackButton from "components/form/buttons/BackButton";
+import NextButton from "components/form/buttons/NextButton";
+import PreviewButton from "components/form/buttons/PreviewButton";
 
 const DesktopStepperButtons = ({formType, steps, handleBack, handleNext, isNextButtonDisable, setModalOpen}) => {
-    const classes = useStyles();
 
-    const backButton = (
-        <Button disabled={formType.step === 0} onClick={handleBack}
-            className={classes.backButton}>
-            Back
-        </Button>
-    );
-
-    const nextButton = (
-        <Button variant="contained" color="primary" onClick={handleNext}
-                disabled={isNextButtonDisable}>
-            Next
-        </Button>
-    );
-
-    const previewButton = (
-        <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                disabled={isNextButtonDisable}>
-            Preview
-        </Button>
-    );
+    const backButton = <BackButton formType={formType} handleBack={handleBack}/>;
+    const nextButton = <NextButton isNextButtonDisable={isNextButtonDisable} handleNext={handleNext}/>;
+    const previewButton = <PreviewButton setModalOpen={setModalOpen} isNextButtonDisable={isNextButtonDisable}/>;
 
     const nextView = formType.step !== steps.length - 1 ? nextButton : previewButton;
 

@@ -1,55 +1,22 @@
 import MobileStepper from "@material-ui/core/MobileStepper";
-import Button from "@material-ui/core/Button";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-    backButton: {
-        marginRight: theme.spacing(1),
-    },
-    stepProgress: {
-        color: "red"
-    }
-}));
-
+import BackButton from "components/form/buttons/BackButton";
+import NextButton from "components/form/buttons/NextButton";
+import PreviewButton from "components/form/buttons/PreviewButton";
 
 const MobileStepperWidget = ({formType, steps, handleNext, handleBack, isNextButtonDisable, setModalOpen}) => {
-    const classes = useStyles();
 
-    const backButton = (
-        <Button
-            disabled={formType.step === 0}
-            onClick={handleBack}
-            className={classes.backButton}
-        >
-            Back
-        </Button>
-    );
-
-    const nextButton = (
-        <Button variant="contained" color="primary" onClick={handleNext}
-                disabled={isNextButtonDisable}>
-            Next
-        </Button>
-    );
-
-    const previewButton = (
-        <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}
-                disabled={isNextButtonDisable}>
-            Preview
-        </Button>
-    );
+    const backButton = <BackButton handleBack={handleBack} formType={formType}/>;
+    const nextButton = <NextButton handleNext={handleNext} isNextButtonDisable={isNextButtonDisable}/>;
+    const previewButton = <PreviewButton isNextButtonDisable={isNextButtonDisable} setModalOpen={setModalOpen}/>;
 
     const nextView = formType.step !== steps.length - 1 ? nextButton : previewButton;
 
     const stepsView = (
         steps.map((label) => (
-            <Step
-                key={label}
-                className={classes.stepProgress}
-            >
+            <Step key={label} style={{color: 'red'}}>
                 <StepLabel>{label}</StepLabel>
             </Step>
         ))
