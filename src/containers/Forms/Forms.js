@@ -222,7 +222,6 @@ const Forms = () => {
                 }
             }
         }
-        console.log('Form is Valid');
         return true;
     }
 
