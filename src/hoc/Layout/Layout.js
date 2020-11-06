@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
-import AppNavBar from "../../containers/appBar/AppNavBar";
+import AppNavBar from 'containers/appBar/AppNavBar';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
-import {useDispatch, useSelector} from "react-redux";
-import ErrorHandler from "../../store/actions/Error";
+import {useDispatch, useSelector} from 'react-redux';
+import ErrorHandler from 'store/actions/ErrorHandler';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -30,7 +30,7 @@ const Layout = props => {
     const errorRef = useRef();
 
     const dispatch = useDispatch();
-    const removeError = useCallback(() => dispatch(ErrorHandler(false, "")), [dispatch]);
+    const removeError = useCallback(() => dispatch(ErrorHandler(false, '')), [dispatch]);
 
     useEffect(() => {
         setOpen(isError);
@@ -50,8 +50,8 @@ const Layout = props => {
                 {props.children}
             </main>
             <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+                aria-labelledby='transition-modal-title'
+                aria-describedby='transition-modal-description'
                 className={classes.modal}
                 open={open}
                 onClose={handler}
@@ -63,8 +63,8 @@ const Layout = props => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Error</h2>
-                        <h3 ref={errorRef} id="transition-modal-description">{errorMessage}</h3>
+                        <h2 id='transition-modal-title'>Error</h2>
+                        <h3 ref={errorRef} id='transition-modal-description'>{errorMessage}</h3>
                     </div>
                 </Fade>
             </Modal>

@@ -1,28 +1,33 @@
-import * as actionTypes from '../actions/ActionTypes'
+import {
+    SIGNUP_START,
+    SIGNUP_FINISHED,
+    SIGNUP_ERROR,
+    SET_TIMEOUT,
+    REMOVE_SIGNUP_ERROR
+} from 'store/actions/ActionTypes'
 
 const initialState = {
     user: null,
     isLogin: false,
     isError: false,
-    error: "",
+    error: '',
     isSignUpLoading: false,
     timeout: null
 };
-const AuthReducer = (state = initialState, action) => {
+const SignupReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.SIGNUP_START:
+        case SIGNUP_START:
             return {...state, isLogin: false, isError: false, isSignUpLoading: true};
-        case actionTypes.SIGNUP_FINISHED:
+        case SIGNUP_FINISHED:
             return {...state, user: {...action.payload}, isLogin: true, isSignUpLoading: false}
-        case actionTypes.SIGNUP_ERROR:
+        case SIGNUP_ERROR:
             return {...state, user: null, isError: true, isLogin: false, isSignUpLoading: false, error: action.error}
-        case actionTypes.SET_TIMEOUT:
+        case SET_TIMEOUT:
             return {...state, timeout: action.timeout}
-        case actionTypes.REMOVE_SIGNUP_ERROR:
+        case REMOVE_SIGNUP_ERROR:
             return {...state, error: false, isSignUpLoading: false}
         default:
             return state;
     }
 }
-
-export default AuthReducer;
+export default SignupReducer;

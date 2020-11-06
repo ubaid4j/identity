@@ -1,26 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import 'index.css';
 import 'fontsource-roboto';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import NextFormReducer from "./store/reducers/NextFormReducer";
-import thunk from "redux-thunk";
-import {composeWithDevTools} from "redux-devtools-extension";
-import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
-import AuthReducer from "./store/reducers/AuthReducer";
-import LoginReducer from "./store/reducers/LoginReducer";
-import ErrorReducer from "./store/reducers/ErrorReducer";
+import App from 'App';
+import * as serviceWorker from 'serviceWorker';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import FormReducer from 'store/reducers/FormReducer';
+import thunk from 'redux-thunk';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
+import SignupReducer from 'store/reducers/SignupReducer';
+import LoginReducer from 'store/reducers/LoginReducer';
+import ErrorReducer from 'store/reducers/ErrorReducer';
 
 
 const env = process.env.NODE_ENV === 'development'
 
 const rootReducer = combineReducers(
     {
-        form: NextFormReducer,
-        auth: AuthReducer,
+        form: FormReducer,
+        auth: SignupReducer,
         login: LoginReducer,
         error: ErrorReducer
     }
@@ -32,7 +32,6 @@ if (env) {
 } else {
     store = createStore(rootReducer, applyMiddleware(thunk));
 }
-
 
 
 ReactDOM.render(

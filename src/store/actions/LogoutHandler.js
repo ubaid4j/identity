@@ -1,26 +1,25 @@
-import * as actionTypes from '../actions/ActionTypes';
+import {REMOVE_FORM, LOGOUT} from 'store/actions/ActionTypes'
 
 const LogoutHandler = () => {
     return dispatch => {
-        localStorage.removeItem("userId");
-        localStorage.removeItem("token");
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
         setTimeout(() => {
-            dispatch(_removeForm());
-            dispatch(_logoutHandler())
+            dispatch(removeForm());
+            dispatch(logoutHandler())
         }, 2000);
     }
-
 }
 
-const _logoutHandler = () => {
+const logoutHandler = () => {
     return {
-        type: actionTypes.LOGOUT
+        type: LOGOUT
     }
 }
 
-const _removeForm = () => {
+const removeForm = () => {
     return {
-        type: actionTypes.REMOVE_FORM
+        type: REMOVE_FORM
     }
 }
 
