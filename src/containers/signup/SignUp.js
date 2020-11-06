@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
 import {Redirect} from 'react-router-dom';
 import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
-import {signup} from 'store/actions/SignUp';
+import {SignUpHandler} from 'store/actions/SignUpHandler';
 import {validateEmail, validateFieldLength, validatePassword, validateWholeForm} from 'shared/util/Utils';
 import SubmitButton from 'components/inputs/SubmitButton';
 import FormSpinner from 'components/inputs/FormSpinner';
@@ -44,7 +44,7 @@ const SignUp = () => {
     const submitRef = createRef();
 
     const dispatch = useDispatch();
-    const handleSignup = useCallback((userData) => dispatch(signup(userData)), [dispatch]);
+    const handleSignup = useCallback((userData) => dispatch(SignUpHandler(userData)), [dispatch]);
 
     const isLogin = useSelector(state => state.auth.isLogin);
     const isSignUpLoading = useSelector(state => state.auth.isSignUpLoading);
@@ -146,13 +146,13 @@ const SignUp = () => {
     const [isSignUpButtonEnable, setSignUpButtonEnable] = useState(false);
 
     useEffect(() => {
-       if (isSignUpLoading) {
-           if (spinnerRef.current) spinnerRef.current.style.display = 'inline-block';
-           if (submitRef.current) submitRef.current.style.display = 'none';
-       } else {
-           if (spinnerRef.current) spinnerRef.current.style.display = 'none';
-           if (submitRef.current) submitRef.current.style.display = 'inline-flex';
-       }
+        if (isSignUpLoading) {
+            if (spinnerRef.current) spinnerRef.current.style.display = 'inline-block';
+            if (submitRef.current) submitRef.current.style.display = 'none';
+        } else {
+            if (spinnerRef.current) spinnerRef.current.style.display = 'none';
+            if (submitRef.current) submitRef.current.style.display = 'inline-flex';
+        }
     }, [isSignUpLoading, spinnerRef, submitRef]);
 
     const onChangeHandler = (fieldId, event) => {
@@ -209,11 +209,12 @@ const SignUp = () => {
                         }
                     </Grid>
                     <FormSpinner ref={spinnerRef}/>
-                    <SubmitButton ref={submitRef} className={classes.submit} isDisable={!isSignUpButtonEnable} label='Sign Up'/>
+                    <SubmitButton ref={submitRef} className={classes.submit} isDisable={!isSignUpButtonEnable}
+                                  label='Sign Up'/>
                     <FormLink to={'/identity/login'} label={'Already have an account? Sign in'}/>
                 </form>
             </div>
-            <CopyRight />
+            <CopyRight/>
         </Container>
     );
 }
