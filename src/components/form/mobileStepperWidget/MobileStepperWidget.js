@@ -10,7 +10,7 @@ const MobileStepperWidget = ({formType, steps, handleNext, handleBack, isNextBut
 
     const backButton = <BackButton handleBack={handleBack} formType={formType}/>;
     const nextButton = <NextButton handleNext={handleNext} isNextButtonDisable={isNextButtonDisable}/>;
-    const previewButton = <PreviewButton isNextButtonDisable={isNextButtonDisable} setModalOpen={setModalOpen}/>;
+    const previewButton = <PreviewButton handleNext={handleNext} isNextButtonDisable={isNextButtonDisable} setModalOpen={setModalOpen}/>;
 
     const nextView = formType.step !== steps.length - 1 ? nextButton : previewButton;
 
