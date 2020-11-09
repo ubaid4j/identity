@@ -11,20 +11,14 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FormLink from 'components/links/FormLink';
 
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+    root: {
+        marginTop: '5rem'
     },
     avatar: {
         margin: theme.spacing(1),
@@ -38,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
     card: {
-        maxWidth: 345
+        minWidth: 345
     }
 }));
 
@@ -67,48 +61,38 @@ const Welcome = () => {
 
     const classes = useStyles();
     return (
-        <Container component='main' maxWidth='xs'>
+        <Container component='main' maxWidth='xs' className={classes.root}>
             <CssBaseline/>
-            <div className={classes.paper}>
-                <Grid container spacing={2} justify={'flex-start'} style={{marginTop: '8px'}}>
-                    <Grid item>
-                        <Card className={classes.card}>
-                            <CardHeader
-                                avatar={
-                                    <Avatar aria-label='recipe' className={classes.avatar}>
-                                        U
-                                    </Avatar>
-                                }
-                                action={
-                                    <IconButton aria-label='settings'>
-                                        <MoreVertIcon />
-                                    </IconButton>
-                                }
-                                title= 'Welcome Back'
-                                subheader={user.username}
-                            />
-                            <CardMedia
-                                className={classes.media}
-                                image='/static/images/cards/paella.jpg'
-                                title='Paella dish'
-                            />
-                            <CardContent>
-                                <Typography ref={formInfoView} variant='body2' color='textSecondary' component='p'>
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton aria-label='add to favorites'>
-                                    <FavoriteIcon />
+            <Grid container spacing={2} justify={'center'}>
+                <Grid item>
+                    <Card className={classes.card}>
+                        <CardHeader
+                            avatar={<Avatar aria-label='recipe' className={classes.avatar}>U</Avatar>}
+                            action={
+                                <IconButton aria-label='settings'>
+                                    <MoreVertIcon/>
                                 </IconButton>
-                                <IconButton aria-label='share'>
-                                    <ShareIcon />
-                                </IconButton>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                            }
+                            title='Welcome Back'
+                            subheader={user.username}
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image='/static/images/cards/paella.jpg'
+                            title='Paella dish'
+                        />
+                        <CardContent>
+                            <Typography ref={formInfoView} variant='body2' color='textSecondary' component='p'>
+                            </Typography>
+                        </CardContent>
+                        <Grid container justify={'flex-start'}>
+                            <Grid item>
+                                <FormLink label={'Click here to fill your identity form'} to={'/identity/create'}/>
+                            </Grid>
+                        </Grid>
+                    </Card>
                 </Grid>
-                <FormLink label={'Click here to fill your identity form'} to={'/identity/create'}/>
-            </div>
+            </Grid>
         </Container>
     );
 }
