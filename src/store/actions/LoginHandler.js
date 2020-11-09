@@ -20,8 +20,8 @@ export const LoginHandler = (username, password) => {
             const token = response.data.idToken;
             RequestResolver.get(`users.json?auth=${token}&orderBy="userId"&equalTo="${response.data.localId}"`)
                 .then(response => handleUserResponse(response, dispatch, response.data.idToken))
-                .catch(error => dispatch(ErrorHandler(true, error.message)));
-        }).catch(error => dispatch(ErrorHandler(true, error.response.data.error.message)));
+                .catch(error => dispatch(ErrorHandler(true,  error.response ? error.response.data.error.message : error.message)));
+        }).catch(error => dispatch(ErrorHandler(true, error.response ? error.response.data.error.message : error.message)));
     }
 }
 
@@ -32,7 +32,7 @@ export const TryLoginHandler = () => {
         if (userId && token) {
             RequestResolver.get(`users.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`)
                 .then(response => handleUserResponse(response, dispatch, token))
-                .catch(error => dispatch(ErrorHandler(true, error.response.data.error.message)));
+                .catch(error => dispatch(ErrorHandler(true, error.response ? error.response.data.error.message : error.message)));
         }
     }
 }
