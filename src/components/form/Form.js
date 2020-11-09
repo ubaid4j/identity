@@ -42,13 +42,13 @@ const Form = ({form, handler, formType}) => {
                 fields.map(field => {
                     switch (field.type) {
                         case 'text':
-                            return <FormTextField type={'text'} field={field} formType={formType} handler={handler}/>
+                            return <FormTextField key={field.id} type={'text'} field={field} formType={formType} handler={handler}/>
                         case 'number':
-                            return <FormTextField type={'number'} field={field} formType={formType} handler={handler}/>
+                            return <FormTextField key={field.id} type={'number'} field={field} formType={formType} handler={handler}/>
                         case 'select':
-                            return <SelectInput handler={handler} formType={formType} field={field}/>
+                            return <SelectInput key={field.id} handler={handler} formType={formType} field={field}/>
                         case 'check':
-                            return <Check handler={handler} formType={formType} field={field}/>
+                            return <Check key={field.id} handler={handler} formType={formType} field={field}/>
                         default:
                             return null;
                     }
