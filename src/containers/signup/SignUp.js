@@ -209,7 +209,7 @@ const SignUp = () => {
                         }
                     </Grid>
                     <FormSpinner ref={spinnerRef}/>
-                    <SubmitButton ref={submitRef} className={classes.submit} isDisable={!isSignUpButtonEnable}
+                    <SubmitButton id={'signUp'} ref={submitRef} className={classes.submit} isDisable={!isSignUpButtonEnable}
                                   label='Sign Up'/>
                     <FormLink to={'/identity/login'} label={'Already have an account? Sign in'}/>
                 </form>

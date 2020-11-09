@@ -77,7 +77,7 @@ const Introduction = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <FormLink to={'/identity/login'} label={'Sign In'}/>
+                                <FormLink id={'toLogin'} to={'/identity/login'} label={'Sign In'}/>
                             </CardActions>
                         </Card>
                     </Grid>

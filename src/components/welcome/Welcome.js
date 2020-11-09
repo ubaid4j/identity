@@ -87,7 +87,7 @@ const Welcome = () => {
                         </CardContent>
                         <Grid container justify={'flex-start'}>
                             <Grid item>
-                                <FormLink label={'Click here to fill your identity form'} to={'/identity/create'}/>
+                                <FormLink id={'fillIdentityForm'} label={'Click here to fill your identity form'} to={'/identity/create'}/>
                             </Grid>
                         </Grid>
                     </Card>
