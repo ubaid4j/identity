@@ -13,7 +13,8 @@ export const SignUpHandler = (userData) => {
         dispatch(signUpStart())
         AuthHandler.post('accounts:signUp', userData)
             .then(response => {
-                RequestResolver.post('/users.json', {
+                const token = response.data.idToken;
+                RequestResolver.post(`/users.json?auth=${token}`, {
                     username: userData.firstName + ' ' + userData.lastName,
                     userId: response.data.localId
                 })
