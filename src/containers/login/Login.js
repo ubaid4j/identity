@@ -95,8 +95,8 @@ const Login = () => {
                     <LoginEmail value={username} setUserName={setUsername}/>
                     <LoginPassword value={password} setPassword={setPassword}/>
                     <FormSpinner ref={spinnerRef}/>
-                    <SubmitButton ref={loginButtonRef} isDisable={false} className={classes.submit} label={'Log In'}/>
-                    <FormLink label={'Don\'t have an account? Sign Up'} to={'/identity/signup'}/>
+                    <SubmitButton id={'login'} ref={loginButtonRef} isDisable={false} className={classes.submit} label={'Log In'}/>
+                    <FormLink id={'toSignUp'} label={'Don\'t have an account? Sign Up'} to={'/identity/signup'}/>
                 </form>
             </div>
             <CopyRight/>

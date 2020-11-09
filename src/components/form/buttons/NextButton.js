@@ -3,7 +3,7 @@ import React from "react";
 
 const NextButton = ({handleNext, isNextButtonDisable}) => {
     return (
-        <Button variant="contained" color="primary" onClick={handleNext} disabled={isNextButtonDisable}>
+        <Button id={'nextFormButton'} variant="contained" color="primary" onClick={handleNext} disabled={isNextButtonDisable}>
             Next
         </Button>
     );
