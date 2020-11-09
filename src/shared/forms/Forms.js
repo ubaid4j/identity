@@ -144,7 +144,7 @@ const PROFESSIONAL_INFO  = {
         label: "Are You Employed?"
     },
     companyName: {
-        text: 'No Space is allowed. Range [3, 15]',
+        text: 'No Digits/Space Allowed. Range [3, 15]',
         pattern: /^[A-z]{3,15}$/g,
         disabled: true,
         value: "",
@@ -159,7 +159,7 @@ const PROFESSIONAL_INFO  = {
         label: "Name of Company"
     },
     designationName: {
-        text: 'No Space is allowed. Range [3, 15]',
+        text: 'No Digits/Space Allowed. Range [3, 15]',
         pattern: /^[A-z]{3,15}$/g,
         disabled: true,
         value: "",
