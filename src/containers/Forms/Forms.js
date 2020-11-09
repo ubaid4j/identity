@@ -155,10 +155,13 @@ const Forms = () => {
         const formData = getFormData();
         formData['isFormCompleted'] = false;
         submitFormInfo(formData, formId, user);
-        setFormType((prevActiveStep) => {
-            setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
-            return formTypes[prevActiveStep.step + 1]
-        });
+        const previewFormStep = 4;
+        if (formType.step !== previewFormStep) {
+            setFormType((prevActiveStep) => {
+                setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
+                return formTypes[prevActiveStep.step + 1]
+            });
+        }
     };
 
     const handleBack = () => {

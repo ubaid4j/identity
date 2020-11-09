@@ -7,7 +7,7 @@ const DesktopStepperButtons = ({formType, steps, handleBack, handleNext, isNextB
 
     const backButton = <BackButton formType={formType} handleBack={handleBack}/>;
     const nextButton = <NextButton isNextButtonDisable={isNextButtonDisable} handleNext={handleNext}/>;
-    const previewButton = <PreviewButton setModalOpen={setModalOpen} isNextButtonDisable={isNextButtonDisable}/>;
+    const previewButton = <PreviewButton handleNext={handleNext} setModalOpen={setModalOpen} isNextButtonDisable={isNextButtonDisable}/>;
 
     const nextView = formType.step !== steps.length - 1 ? nextButton : previewButton;
 
