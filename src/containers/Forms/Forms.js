@@ -40,7 +40,7 @@ function getSteps() {
 }
 
 
-const Forms = () => {
+const Forms = ({isEdit=false}) => {
     const classes = useStyles();
     const [formType, setFormType] = React.useState(formTypes[0]);
     const [isSubFormComplete, setSubFormComplete] = useState(false);
@@ -228,7 +228,7 @@ const Forms = () => {
         return true;
     }
 
-    if (isFormComplete) {
+    if (isFormComplete && !isEdit) {
         return <Redirect to='/identity/congrats'/>
     }
 
