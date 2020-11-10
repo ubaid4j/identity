@@ -29,7 +29,7 @@ const Congrats = () => {
             </CardContent>
             <CardActions>
                 <FormLink label='View Your Form' to='/identity/preview'/>
-                <FormLink label='Edit Your Form' to='/identity/create'/>
+                <FormLink label='Edit Your Form' to='/identity/edit'/>
             </CardActions>
         </Card>
     );

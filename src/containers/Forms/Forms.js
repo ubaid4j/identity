@@ -40,7 +40,7 @@ function getSteps() {
 }
 
 
-const Forms = () => {
+const Forms = ({isEdit = false, location}) => {
     const classes = useStyles();
     const [formType, setFormType] = React.useState(formTypes[0]);
     const [isSubFormComplete, setSubFormComplete] = useState(false);
@@ -73,6 +73,7 @@ const Forms = () => {
                         if (subRemoteForm.isCompleted) {
                             setSubFormComplete(true);
                             subForm[field].value = subRemoteForm[field];
+                            subForm[field].disabled = false;
                             subForm[field].validation.isValid = true;
                             subForm[field].validation.isTouched = true;
                         }
@@ -149,16 +150,20 @@ const Forms = () => {
         setFormType(formTypes[0]);
         setNextButtonDisable(true);
         clearFormData();
+        location.pathname = '/identity/congrats'
     }
 
     const handleNext = () => {
         const formData = getFormData();
         formData['isFormCompleted'] = false;
         submitFormInfo(formData, formId, user);
-        setFormType((prevActiveStep) => {
-            setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
-            return formTypes[prevActiveStep.step + 1]
-        });
+        const previewFormStep = 4;
+        if (formType.step !== previewFormStep) {
+            setFormType((prevActiveStep) => {
+                setNextButtonEnable(formTypes[prevActiveStep.step + 1]);
+                return formTypes[prevActiveStep.step + 1]
+            });
+        }
     };
 
     const handleBack = () => {
@@ -225,7 +230,7 @@ const Forms = () => {
         return true;
     }
 
-    if (isFormComplete) {
+    if ((isFormComplete && !isEdit) || (location.pathname === '/identity/congrats')) {
         return <Redirect to='/identity/congrats'/>
     }
 

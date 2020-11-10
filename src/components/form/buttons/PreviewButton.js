@@ -1,9 +1,9 @@
 import Button from "@material-ui/core/Button";
 import React from "react";
 
-const PreviewButton = ({setModalOpen, isNextButtonDisable}) => {
+const PreviewButton = ({handleNext, setModalOpen, isNextButtonDisable}) => {
     return (
-        <Button variant="contained" color="primary" onClick={() => setModalOpen(true)} disabled={isNextButtonDisable}>
+        <Button id={'previewButton'} variant="contained" color="primary" onClick={() => {handleNext(); setModalOpen(true)}} disabled={isNextButtonDisable}>
             Preview
         </Button>
     );
