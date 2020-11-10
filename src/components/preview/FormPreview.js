@@ -12,7 +12,7 @@ const FormPreview = ({form}) => {
             <Container maxWidth='sm'>
                 {
                     Object.keys(form).map(key =>
-                        <PreviewTable identityForm={identityForm} id={key} subForm={form[key]}/>)
+                        <PreviewTable key={key} identityForm={identityForm} id={key} subForm={form[key]}/>)
                 }
             </Container>
         </>

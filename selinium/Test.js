@@ -9,7 +9,7 @@ async function example() {
     await driver.sleep(250)
 
     //email address
-    const email = 'test499@test.com'
+    const email = 'test502@test.com'
 
     //click on sign up
     await driver.findElement(By.xpath("//*[@id=\"toSignUp\"]")).click();

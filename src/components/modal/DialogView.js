@@ -3,21 +3,10 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormPreview from 'components/preview/FormPreview';
 
 const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
-
-    const descriptionElementRef = React.useRef(null);
-    React.useEffect(() => {
-        if (open) {
-            const { current: descriptionElement } = descriptionElementRef;
-            if (descriptionElement !== null) {
-                descriptionElement.focus();
-            }
-        }
-    }, [open]);
 
     return (
         <div>
@@ -32,12 +21,7 @@ const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
             >
                 <DialogTitle id='scroll-dialog-title'>Form Preview</DialogTitle>
                 <DialogContent dividers={true}>
-                    <DialogContentText
-                        id='scroll-dialog-description'
-                        ref={descriptionElementRef}
-                        tabIndex={-1}>
-                        <FormPreview form={form} />
-                    </DialogContentText>
+                    <FormPreview form={form} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={modalHandler} color='primary'>Cancel</Button>
@@ -47,5 +31,4 @@ const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
         </div>
     );
 }
-
 export default DialogView;
