@@ -42,7 +42,7 @@ async function example() {
     await driver.sleep(250)
     await driver.findElement(By.xpath("//*[@id=\"age\"]")).sendKeys("23");
     await driver.sleep(250)
-    await driver.findElement(By.xpath("//*[@id=\"mobileNumber\"]")).sendKeys("+92-307-5034375");
+    await driver.findElement(By.xpath("//*[@id=\"mobileNumber\"]")).sendKeys("+92-311-1111111");
     await driver.sleep(250)
     await driver.findElement(By.xpath("//*[@id=\"nextFormButton\"]")).click();
     await driver.sleep(250)
