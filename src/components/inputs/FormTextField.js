@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 
@@ -20,3 +21,10 @@ const FormTextField = ({type, field, handler, formType}) => {
     );
 }
 export default FormTextField;
+
+FormTextField.propTypes = {
+    type: PropTypes.string,
+    field: PropTypes.object,
+    handler: PropTypes.func,
+    formType: PropTypes.object
+}

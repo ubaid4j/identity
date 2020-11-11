@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,3 +19,7 @@ const PreviewTableHead = ({id}) => {
     );
 }
 export default PreviewTableHead;
+
+PreviewTableHead.propTypes = {
+    id: PropTypes.string
+}

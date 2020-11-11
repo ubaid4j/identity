@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import React from 'react';
@@ -20,3 +21,10 @@ const PreviewTableRow = ({subForm, identityForm, id, subKey}) => {
     );
 }
 export default PreviewTableRow;
+
+PreviewTableRow.propTypes = {
+    subForm: PropTypes.object,
+    identityForm: PropTypes.object,
+    id: PropTypes.string,
+    subKey: PropTypes.string
+}

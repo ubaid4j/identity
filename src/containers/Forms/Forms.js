@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Form from 'components/form/Form';
@@ -274,5 +275,9 @@ const Forms = ({isEdit = false, location}) => {
         </Container>
     );
 }
-
 export default Forms;
+
+Forms.propTypes = {
+    isEdit: PropTypes.bool,
+    location: PropTypes.object
+}

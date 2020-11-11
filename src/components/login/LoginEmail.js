@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 
@@ -19,5 +20,9 @@ const LoginEmail = ({username, setUserName}) => {
 
     );
 }
-
 export default LoginEmail;
+
+LoginEmail.propTypes = {
+    username: PropTypes.string,
+    setUserName: PropTypes.func
+}

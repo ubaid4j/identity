@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from "react";
 import BackButton from "components/form/buttons/BackButton";
 import NextButton from "components/form/buttons/NextButton";
@@ -19,3 +20,12 @@ const DesktopStepperButtons = ({formType, steps, handleBack, handleNext, isNextB
     );
 }
 export default DesktopStepperButtons;
+
+DesktopStepperButtons.propTypes = {
+    formType: PropTypes.object,
+    steps: PropTypes.array,
+    handleBack: PropTypes.func,
+    handleNext: PropTypes.func,
+    isNextButtonDisable: PropTypes.bool,
+    setModalOpen: PropTypes.func
+}

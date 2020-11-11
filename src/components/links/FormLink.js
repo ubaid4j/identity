@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -17,3 +18,9 @@ const FormLink = ({id, to, label}) => {
     )
 }
 export default FormLink;
+
+FormLink.propTypes = {
+    id: PropTypes.string,
+    to: PropTypes.string,
+    label: PropTypes.string
+}

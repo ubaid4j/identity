@@ -26,11 +26,11 @@ export const SignUpHandler = (userData) => {
                         }))
                     })
                     .catch(error => {
-                        dispatch(ErrorHandler(true, error.response.data.error.message))
+                        dispatch(ErrorHandler(true, error.response ? error.response.data.error.message : error.message))
                     })
             })
             .catch(error => {
-                dispatch(ErrorHandler(true, error.response.data.error.message))
+                dispatch(ErrorHandler(true, error.response ? error.response.data.error.message : error.message))
             })
     }
 }

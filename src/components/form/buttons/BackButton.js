@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Button from "@material-ui/core/Button";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
@@ -17,3 +18,8 @@ const BackButton = ({formType, handleBack}) => {
     );
 }
 export default BackButton;
+
+BackButton.propTypes = {
+    formType: PropTypes.object,
+    handleBack: PropTypes.func
+}
