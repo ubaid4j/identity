@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import MobileStepper from "@material-ui/core/MobileStepper";
 import StepLabel from "@material-ui/core/StepLabel";
 import React from "react";
@@ -30,3 +31,12 @@ const MobileStepperWidget = ({formType, steps, handleNext, handleBack, isNextBut
 }
 
 export default MobileStepperWidget;
+
+MobileStepperWidget.propTypes = {
+    formType: PropTypes.object,
+    steps: PropTypes.array,
+    handleNext: PropTypes.func,
+    handleBack: PropTypes.func,
+    isNextButtonDisable: PropTypes.bool,
+    setModalOpen: PropTypes.func
+}

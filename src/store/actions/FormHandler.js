@@ -66,7 +66,7 @@ const updateUserInfo = (formId, form, user, dispatch) => {
         .then(() => {
             dispatch(UpdateUserInfo(formInfo))
         }).catch(error => {
-        dispatch(ErrorHandler(true, error.response.data ? error.response.data.error.message : error.message));
+        dispatch(ErrorHandler(true, error.response ? error.response.data.error.message : error.message));
     })
 }
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Button from "@material-ui/core/Button";
 import React from "react";
 
@@ -9,3 +10,8 @@ const NextButton = ({handleNext, isNextButtonDisable}) => {
     );
 }
 export default NextButton;
+
+NextButton.propTypes = {
+    handleNext: PropTypes.func,
+    isNextButtonDisable: PropTypes.bool
+}

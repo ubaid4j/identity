@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {FormControl} from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -46,5 +47,10 @@ const SelectInput = ({formType, field, handler}) => {
         </FormControl>
     );
 }
-
 export default SelectInput;
+
+SelectInput.propTypes = {
+    formType: PropTypes.object,
+    field: PropTypes.object,
+    handler: PropTypes.func
+}

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import React from 'react';
@@ -26,3 +27,9 @@ const PreviewTable = ({id, subForm, identityForm}) => {
     );
 }
 export default PreviewTable;
+
+PreviewTable.propTypes = {
+    id: PropTypes.string,
+    subForm: PropTypes.object,
+    identityForm: PropTypes.object
+}

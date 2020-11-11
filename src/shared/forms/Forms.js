@@ -1,5 +1,3 @@
-
-
 const PERSONAL_INFO = {
     firstName: {
         text: 'No Digits/Space Allowed. Not more than 8 and less than 3 Alphabets',
@@ -78,7 +76,6 @@ const PERSONAL_INFO = {
         label: "Mobile Number"
     }
 }
-
 const EDUCATIONAL_INFO = {
     metricMarks: {
         text: 'Invalid Input. Should like this xx%',
@@ -256,5 +253,4 @@ const form = {
     EXCISE_INFO,
     RESIDENT_INFO
 }
-
 export default form;

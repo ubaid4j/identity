@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -15,3 +16,8 @@ const DesktopStepper = ({formType, steps}) => {
     );
 }
 export default DesktopStepper;
+
+DesktopStepper.propTypes = {
+    formType: PropTypes.object,
+    steps: PropTypes.array
+}
