@@ -13,7 +13,7 @@ const FormPreview = ({form}) => {
     return (
         <>
             <CssBaseline/>
-            <Container maxWidth='sm'>
+            <Container maxWidth='sm' style={{marginTop: '8px'}}>
                 {
                     Object.keys(form).map(key => isObject(form[key]) ?
                         <PreviewTable key={key} identityForm={identityForm} id={key} subForm={form[key]}/> :
