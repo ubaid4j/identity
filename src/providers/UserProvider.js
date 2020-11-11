@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {createContext} from "react";
 import {useSelector} from "react-redux";
 
@@ -31,3 +32,7 @@ const UserProvider = (props) => {
     );
 }
 export default UserProvider;
+
+UserProvider.propTypes = {
+    children: PropTypes.any
+}

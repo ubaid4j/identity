@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import React, {forwardRef} from 'react';
 
-const SubmitButton = forwardRef(({id, className, isDisable = false, label}, ref) => {
+const SubmitButton = forwardRef(function render({id, className, isDisable = false, label}, ref) {
     return (
         <Button
             id={id}
