@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
@@ -72,3 +73,7 @@ const Layout = props => {
     );
 }
 export default Layout;
+
+Layout.propTypes = {
+    children: PropTypes.any
+}
