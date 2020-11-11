@@ -1,5 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import SelectInput from 'components/inputs/Select';
 import Check from 'components/inputs/Check';
 import FormTextField from 'components/inputs/FormTextField';
@@ -57,5 +58,10 @@ const Form = ({form, handler, formType}) => {
         </form>
     );
 }
-
 export default Form;
+
+Form.propTypes = {
+    form: PropTypes.object,
+    handler: PropTypes.func,
+    formType: PropTypes.object
+}

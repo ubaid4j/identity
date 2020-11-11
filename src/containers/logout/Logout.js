@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import LogoutHandler from 'store/actions/LogoutHandler';
@@ -21,3 +22,7 @@ const Logout = (props) => {
     );
 }
 export default Logout;
+
+Logout.propTypes = {
+    pathname: PropTypes.object
+}

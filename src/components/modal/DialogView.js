@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -32,3 +33,10 @@ const DialogView = ({open, modalHandler, form, saveFormHandler}) => {
     );
 }
 export default DialogView;
+
+DialogView.propTypes = {
+    open: PropTypes.bool,
+    modalHandler: PropTypes.func,
+    form: PropTypes.object,
+    saveFormHandler: PropTypes.func
+}

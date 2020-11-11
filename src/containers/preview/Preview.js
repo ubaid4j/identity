@@ -4,9 +4,10 @@ import FormPreview from "../../components/preview/FormPreview";
 import {useSelector} from "react-redux";
 import {Container} from "@material-ui/core";
 
-
 const Preview = () => {
+
     const form = useSelector(state => state.form.form);
+
     return (
         <Container maxWidth="sm">
             <Paper  elevation={3}>
@@ -15,5 +16,4 @@ const Preview = () => {
         </Container>
     );
 }
-
 export default Preview;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 
@@ -18,5 +19,9 @@ const LoginPassword = ({password, setPassword}) => {
         />
     );
 }
-
 export default LoginPassword;
+
+LoginPassword.propTypes = {
+    password: PropTypes.string,
+    setPassword: PropTypes.func
+}
