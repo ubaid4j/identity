@@ -24,5 +24,6 @@ const Logout = (props) => {
 export default Logout;
 
 Logout.propTypes = {
-    pathname: PropTypes.object
+    location: PropTypes.object,
+    pathname: PropTypes.string
 }

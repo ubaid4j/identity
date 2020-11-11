@@ -70,6 +70,7 @@ const Forms = ({isEdit = false, location}) => {
                 const subRemoteForm = form[key];
                 for (let field in subRemoteForm) {
                     if (field === 'isCompleted') continue;
+                    // eslint-disable-next-line no-prototype-builtins
                     if (subRemoteForm.hasOwnProperty(field)) {
                         if (subRemoteForm.isCompleted) {
                             setSubFormComplete(true);
@@ -98,6 +99,7 @@ const Forms = ({isEdit = false, location}) => {
                 info['isCompleted'] = isSubFormComplete;
             }
             for (let subKey in subForm) {
+                // eslint-disable-next-line no-prototype-builtins
                 if (subForm.hasOwnProperty(subKey)) {
                     const value = subForm[subKey];
                     if (!value.disabled) {
@@ -117,6 +119,7 @@ const Forms = ({isEdit = false, location}) => {
             if (subForm === IDENTITY_FORM.PROFESSIONAL_INFO || subForm === IDENTITY_FORM.EXCISE_INFO || subForm === IDENTITY_FORM.RESIDENT_INFO) {
                 for (let key in subForm) {
                     if (key === 'isCompleted') continue;
+                    // eslint-disable-next-line no-prototype-builtins
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
                         if (field.type === 'check') {
@@ -131,6 +134,7 @@ const Forms = ({isEdit = false, location}) => {
                 }
             } else {
                 for (let key in subForm) {
+                    // eslint-disable-next-line no-prototype-builtins
                     if (subForm.hasOwnProperty(key)) {
                         const field = subForm[key];
                         field.value = '';
@@ -188,6 +192,7 @@ const Forms = ({isEdit = false, location}) => {
         const newIdentityForm = _.clone(identityForm);
         const subForm = newIdentityForm[formType.value];
         for (let field in subForm) {
+            // eslint-disable-next-line no-prototype-builtins
             if (subForm.hasOwnProperty(field)) {
                 if (subForm[field].type === 'text' || subForm[field].type === 'select') {
                     subForm[field].disabled = isDisable;
@@ -221,6 +226,7 @@ const Forms = ({isEdit = false, location}) => {
     const isValid = (subForm) => {
         for (let key in subForm) {
             if (key === 'isCompleted') continue;
+            // eslint-disable-next-line no-prototype-builtins
             if (subForm.hasOwnProperty(key)) {
                 const field = subForm[key];
                 if (!field.disabled && !field.validation.isValid) {
